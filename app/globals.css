@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #e8edf1;
+  --color-ink: #12213b;
+  --color-muted: #4a5a73;
+  --color-rule: #b4c0cd;
+  --color-marker: #f5c518;
+  --color-teal: #1d6f6a;
+
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui,
+    sans-serif;
+  --font-body: "Source Serif 4 Variable", ui-serif, Georgia, serif;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+/* Kertas millimeter: garis tipis tiap 16px, garis tebal tiap 80px */
+.grid-paper {
+  background-image:
+    linear-gradient(to right, rgb(18 33 59 / 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(18 33 59 / 0.09) 1px, transparent 1px),
+    linear-gradient(to right, rgb(18 33 59 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(18 33 59 / 0.04) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+  background-position: -1px -1px;
+}
+
+/* Satu momen gerak: nama naik sekali saat halaman dibuka */
+.name-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+.name-line > span {
+  display: block;
+  animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.name-line:nth-child(2) > span {
+  animation-delay: 0.12s;
+}
+.name-line:nth-child(3) > span {
+  animation-delay: 0.24s;
+}
+@keyframes rise {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .name-line > span {
+    animation: none;
+  }
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--color-marker);
+  color: var(--color-ink);
+}
