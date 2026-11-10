@@ -161,7 +161,7 @@ export const projects: ShowcaseProject[] = [
     ],
     link: {
       label: "Read the journal article",
-      href: "https://doi.org/10.47668/edusaintek.v13i1.2286",
+      href: "https://journalstkippgrisitubondo.ac.id/index.php/EDUSAINTEK/article/view/2286",
     },
     note: "Real app screens with sample data. The app itself is in Indonesian. Pick a role to see its page.",
     layout: "stack",
