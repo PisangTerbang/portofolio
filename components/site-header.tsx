@@ -54,8 +54,8 @@ export function SiteHeader({ links, initials, name, cvUrl }: Props) {
   return (
     <header className="site-header" data-solid={solid ? "" : undefined}>
       <div className="scroll-progress" aria-hidden="true" />
-      <nav aria-label="Navigasi utama" className="site-nav">
-        <a href="#beranda" className="brand" onClick={() => setOpen(false)}>
+      <nav aria-label="Main navigation" className="site-nav">
+        <a href="#home" className="brand" onClick={() => setOpen(false)}>
           <span className="brand-mark" aria-hidden="true">
             {initials}
           </span>
@@ -76,21 +76,21 @@ export function SiteHeader({ links, initials, name, cvUrl }: Props) {
         </ul>
 
         <a href={cvUrl} download className="nav-cv">
-          Unduh CV
+          Download CV
         </a>
 
         <button
           type="button"
           className="nav-toggle"
           aria-expanded={open}
-          aria-controls="menu-ponsel"
+          aria-controls="mobile-menu"
           onClick={() => setOpen((value) => !value)}
         >
-          {open ? "Tutup" : "Menu"}
+          {open ? "Close" : "Menu"}
         </button>
       </nav>
 
-      <div id="menu-ponsel" className="mobile-menu" hidden={!open}>
+      <div id="mobile-menu" className="mobile-menu" hidden={!open}>
         <ul>
           {links.map((link) => (
             <li key={link.id}>
@@ -101,7 +101,7 @@ export function SiteHeader({ links, initials, name, cvUrl }: Props) {
           ))}
         </ul>
         <a href={cvUrl} download className="btn btn-mark mobile-menu-cv">
-          Unduh CV (PDF)
+          Download CV (PDF)
         </a>
       </div>
     </header>

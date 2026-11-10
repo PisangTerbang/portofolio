@@ -16,7 +16,7 @@ const scrollTime = (image: StaticImageData, viewRatio: number) => {
 
 export function DeviceShowcase({ title, desktop, mobile }: Props) {
   return (
-    <div className="devices">
+    <div className="devices" data-tilt>
       <div className="browser devices-desktop">
         <div className="browser-bar">
           <span />
@@ -27,7 +27,7 @@ export function DeviceShowcase({ title, desktop, mobile }: Props) {
         <div className="devices-screen" style={scrollTime(desktop, 9 / 16)}>
           <Image
             src={desktop}
-            alt={`Tampilan ${title} di laptop`}
+            alt={`${title} on a laptop`}
             sizes="(min-width: 1024px) 52rem, 92vw"
             fill
           />
@@ -40,7 +40,7 @@ export function DeviceShowcase({ title, desktop, mobile }: Props) {
         >
           <Image
             src={mobile}
-            alt={`Tampilan ${title} di ponsel`}
+            alt={`${title} on a phone`}
             sizes="(min-width: 1024px) 14rem, 36vw"
             fill
           />

@@ -24,11 +24,11 @@ export const profile = {
   name: "Anugrah Prima Pratama",
   nameLines: ["Anugrah", "Prima", "Pratama"],
   initials: "AP",
-  status: "Terbuka untuk peluang kerja",
-  role: "Web developer, lulusan Informatika UII 2026.",
+  status: "Open to work",
+  role: "Web developer and Informatics graduate from Universitas Islam Indonesia.",
   intro:
-    "Saya membangun aplikasi web dari rancangan antarmuka sampai basis data. Proyek terbesar saya, sistem penetapan judul tugas akhir untuk lima peran pengguna, terbit sebagai artikel jurnal.",
-  photoAlt: "Anugrah Prima Pratama, berkemeja hitam dengan tangan bersedekap",
+    "I build web applications from the interface down to the database. My biggest project, a thesis title approval system for five user roles, was published as a journal article.",
+  photoAlt: "Anugrah Prima Pratama in a black shirt with his arms crossed",
 };
 
 export const contact = {
@@ -39,25 +39,25 @@ export const contact = {
 };
 
 export const navLinks = [
-  { id: "tentang", label: "Tentang" },
-  { id: "proyek", label: "Proyek" },
-  { id: "keahlian", label: "Keahlian" },
-  { id: "kontak", label: "Kontak" },
+  { id: "about", label: "About" },
+  { id: "projects", label: "Projects" },
+  { id: "skills", label: "Skills" },
+  { id: "contact", label: "Contact" },
 ];
 
 export const about = {
-  lead: "Saya lulusan Informatika yang membangun aplikasi web dari ujung ke ujung: merancang alurnya, menulis logika di server, menyimpan datanya, lalu merapikan tampilannya.",
-  body: "Selama kuliah saya membuat proyek untuk Informatics Expo setiap tahun, lalu menutupnya dengan tugas akhir berupa sistem informasi berbasis Laravel yang kini terbit di Jurnal EDUSAINTEK. Saya terbiasa memakai AI untuk belajar dan mempercepat pengembangan.",
+  lead: "I'm an Informatics graduate who builds web applications end to end: designing the flow, writing the server logic, storing the data, and polishing the interface.",
+  body: "In university I built a project for the Informatics Expo every year, then finished with a Laravel-based information system for my thesis, now published in Jurnal EDUSAINTEK. I use AI every day to learn faster and ship sooner.",
   facts: [
     {
-      label: "Pendidikan",
-      value: "S1 Informatika, Universitas Islam Indonesia (2022–2026)",
+      label: "Education",
+      value: "Bachelor of Informatics, Universitas Islam Indonesia (2022–2026)",
     },
-    { label: "Predikat", value: "Cum laude, IPK 3,64 dari 4,00" },
-    { label: "Fokus", value: "Aplikasi web dengan Laravel dan Next.js" },
+    { label: "Honors", value: "Cum laude, GPA 3.64 out of 4.00" },
+    { label: "Focus", value: "Web applications with Laravel and Next.js" },
     {
-      label: "Posisi yang dicari",
-      value: "Software engineer (web) atau analis data",
+      label: "Looking for",
+      value: "Software engineer (web) or data analyst roles",
     },
   ],
 };
@@ -84,6 +84,7 @@ type ProjectBase = {
   stack: string[];
   link?: { label: string; href: string };
   note?: string;
+  layout: "stack" | "split" | "split-reverse";
 };
 
 export type ShowcaseProject =
@@ -100,19 +101,19 @@ export type ShowcaseProject =
 
 export const projects: ShowcaseProject[] = [
   {
-    id: "proyek-tugas-akhir",
-    navLabel: "Tugas akhir",
-    kind: "Aplikasi web",
-    context: "Tugas akhir, terbit di Jurnal EDUSAINTEK",
-    title: "Sistem penetapan judul tugas akhir berjenjang",
-    subtitle: "Lima peran, satu alur persetujuan",
+    id: "project-thesis",
+    navLabel: "Thesis",
+    kind: "Web app",
+    context: "Thesis, published in Jurnal EDUSAINTEK",
+    title: "Tiered thesis title approval system",
+    subtitle: "Five roles, one approval flow",
     summary:
-      "Aplikasi web yang memindahkan pengajuan dan penetapan judul tugas akhir ke satu tempat. Setiap pengajuan melewati beberapa jenjang persetujuan, dan setiap pihak masuk dengan perannya sendiri.",
+      "A web application that brings thesis title submissions and approvals into one place. Every submission moves through several approval stages, and each party signs in with their own role.",
     highlights: [
-      "Merancang alur dan basis data dengan metode RAD",
-      "Membangun login dan hak akses untuk lima peran pengguna",
-      "Membuat dasbor dengan grafik untuk memantau pengajuan",
-      "Menulis hasilnya menjadi artikel jurnal bersama Sri Mulyati",
+      "Designed the flow and database with Rapid Application Development (RAD)",
+      "Built sign-in and access control for five user roles",
+      "Created dashboards with charts to track submissions",
+      "Wrote up the results as a journal article with Sri Mulyati",
     ],
     stack: [
       "Laravel 12",
@@ -124,97 +125,102 @@ export const projects: ShowcaseProject[] = [
       "Chart.js",
     ],
     link: {
-      label: "Baca artikel jurnalnya",
+      label: "Read the journal article",
       href: "https://doi.org/10.47668/edusaintek.v13i1.2286",
     },
-    note: "Tampilan aplikasi asli dengan data contoh. Pilih peran untuk melihat halamannya.",
+    note: "Real app screens with sample data. The app itself is in Indonesian. Pick a role to see its page.",
+    layout: "stack",
     visual: "browser",
     screens: [
-      { id: "mahasiswa", label: "Mahasiswa", image: taMahasiswa, scroll: true },
-      { id: "dosen", label: "Dosen", image: taDosen, scroll: true },
-      { id: "ketua-lab", label: "Ketua lab", image: taKetuaLab, scroll: true },
-      { id: "prodi", label: "Prodi", image: taProdi, scroll: true },
+      { id: "student", label: "Student", image: taMahasiswa, scroll: true },
+      { id: "lecturer", label: "Lecturer", image: taDosen, scroll: true },
+      { id: "lab-head", label: "Lab head", image: taKetuaLab, scroll: true },
+      { id: "program", label: "Study program", image: taProdi, scroll: true },
       {
-        id: "koordinator",
-        label: "Koordinator TA",
+        id: "coordinator",
+        label: "Thesis coordinator",
         image: taKoordinator,
         scroll: true,
       },
     ],
   },
   {
-    id: "proyek-ratatouille",
+    id: "project-ratatouille",
     navLabel: "Ratatouille",
-    kind: "Aplikasi web",
-    context: "Proyek tim, capstone Pengembangan Sistem Informasi",
+    kind: "Web app",
+    context: "Team capstone, Information Systems Development",
     title: "Ratatouille",
-    subtitle: "Sistem informasi restoran tematik",
+    subtitle: "Information system for a themed restaurant",
     summary:
-      "Pelanggan bisa memesan meja, memesan makanan, dan bertanya lewat chatbot, sementara pengelola mengatur menu dan memantau statistik penjualan. Dikerjakan tim lima orang dengan metode Kanban.",
-    role: "Peran saya di frontend: membangun antarmuka yang responsif serta fitur registrasi, reservasi, dan pemesanan.",
+      "Customers can book a table, order food, and ask questions through a chatbot, while staff manage the menu and follow sales statistics. Built by a team of five using Kanban.",
+    role: "My part was the frontend: a responsive interface plus the sign-up, reservation, and ordering features.",
     stack: ["HTML", "CSS", "JavaScript", "PHP", "Kanban"],
-    note: "Beranda diambil dari mockup Figma tim, halaman lain dari aplikasi yang sudah jadi.",
+    note: "The home page comes from the team's Figma mockup. The other pages are from the finished app.",
+    layout: "split",
     visual: "browser",
     screens: [
-      { id: "beranda", label: "Beranda", image: rataBeranda, scroll: true },
+      { id: "home", label: "Home", image: rataBeranda, scroll: true },
       { id: "menu", label: "Menu", image: rataMenu },
-      { id: "reservasi", label: "Reservasi", image: rataReservasi },
-      { id: "denah", label: "Denah 3D", image: rataDenah },
+      { id: "booking", label: "Booking", image: rataReservasi },
+      { id: "floor-plan", label: "3D floor plan", image: rataDenah },
       { id: "chatbot", label: "Chatbot", image: rataChatbot },
-      { id: "statistik", label: "Statistik", image: rataStatistik },
+      { id: "statistics", label: "Statistics", image: rataStatistik },
     ],
   },
   {
-    id: "proyek-smartcycle",
+    id: "project-smartcycle",
     navLabel: "SmartCycle",
-    kind: "Desain UI/UX",
-    context: "Aplikasi mobile",
+    kind: "UI/UX design",
+    context: "Mobile app",
     title: "SmartCycle",
-    subtitle: "Aplikasi daur ulang sampah",
+    subtitle: "A waste recycling app",
     summary:
-      "Aplikasi daur ulang sampah kami dirancang untuk memudahkan masyarakat dalam proses daur ulang, memberikan edukasi tentang pentingnya daur ulang, serta membantu pengguna menemukan tempat pengumpulan sampah terdekat. Untuk mengukur efektivitas dan kegunaan aplikasi, kami melakukan survei terhadap sejumlah pengguna.",
-    stack: ["Figma", "Prototipe", "Survei pengguna"],
+      "Our recycling app is designed to make recycling easier, teach people why it matters, and help them find the nearest waste collection point. To measure how effective and usable the app is, we surveyed a group of users.",
+    stack: ["Figma", "Prototyping", "User survey"],
+    layout: "stack",
     visual: "phones",
     screens: [
-      { image: smartBeranda, label: "Beranda" },
-      { image: smartLokasi, label: "Lokasi daur ulang" },
-      { image: smartScan, label: "Scan sampah" },
-      { image: smartEdukasi, label: "Edukasi" },
-      { image: smartPenukaran, label: "Penukaran poin" },
+      { image: smartBeranda, label: "Home" },
+      { image: smartLokasi, label: "Recycling spots" },
+      { image: smartScan, label: "Scan waste" },
+      { image: smartEdukasi, label: "Learn" },
+      { image: smartPenukaran, label: "Redeem points" },
     ],
   },
   {
-    id: "proyek-kost",
+    id: "project-kost",
     navLabel: "Kost Putra Pendekar",
     kind: "Landing page",
-    context: "Proyek pribadi, sudah online",
+    context: "Personal project, live",
     title: "Kost Putra Pendekar",
-    subtitle: "Halaman promosi kost putra di Yogyakarta",
+    subtitle: "Promo site for a men's boarding house in Yogyakarta",
     summary:
-      "Menampilkan fasilitas, galeri foto kamar, harga sewa, tanya jawab, dan lokasi di Google Maps. Calon penghuni bisa langsung menghubungi pemilik lewat WhatsApp.",
+      "Shows the facilities, a photo gallery of the rooms, the monthly rent, an FAQ, and the location on Google Maps. Future tenants can message the owner on WhatsApp in one tap.",
     stack: ["Next.js", "React", "Tailwind CSS", "Motion"],
     link: {
-      label: "Kunjungi situsnya",
+      label: "Visit the site",
       href: "https://kost-pendekar.vercel.app",
     },
+    layout: "split-reverse",
     visual: "devices",
     desktop: kostDesktop,
     mobile: kostMobile,
   },
   {
-    id: "proyek-portofolio",
-    navLabel: "Portofolio ini",
-    kind: "Situs pribadi",
-    context: "Proyek pribadi, sudah online",
-    title: "Situs portofolio ini",
-    subtitle: "Proyek dan keahlian saya dalam satu halaman",
+    id: "project-portfolio",
+    navLabel: "This portfolio",
+    kind: "Personal site",
+    context: "Personal project, live",
+    title: "This portfolio",
+    subtitle: "My projects and skills on one page",
     summary:
-      "Dibangun dengan Next.js dan Tailwind CSS, dengan bantuan AI. Tampil rapi di ponsel maupun laptop, dan otomatis diperbarui setiap ada perubahan di GitHub.",
+      "Built with Next.js and Tailwind CSS, with help from AI. It works on phones and laptops alike, and redeploys automatically whenever a change lands on GitHub.",
     stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4"],
     link: {
-      label: "Lihat kodenya di GitHub",
+      label: "View the code on GitHub",
       href: "https://github.com/PisangTerbang/portofolio",
     },
+    layout: "split",
     visual: "devices",
     desktop: portoDesktop,
     mobile: portoMobile,
@@ -225,29 +231,30 @@ export const otherProjects = [
   {
     icon: "design",
     tool: "Figma",
-    title: "Desain UI/UX bertema kebersihan lingkungan",
-    detail: "Merancang tampilan dan alur penggunaan untuk Informatics Expo.",
+    title: "UI/UX design for a clean-environment app",
+    detail: "Designed the interface and user flow for the Informatics Expo.",
   },
   {
     icon: "desktop",
     tool: "Java",
-    title: "Aplikasi penyalur sisa makanan ke lembaga sosial",
+    title: "Surplus food app for charities",
     detail:
-      "Menyalurkan sisa makanan dari perusahaan ke LSM agar tidak terbuang.",
+      "Routes leftover food from companies to NGOs so it doesn't go to waste.",
   },
   {
     icon: "mobile",
     tool: "Android Studio",
-    title: "Aplikasi Android bertema kebersihan",
-    detail: "Aplikasi mobile untuk mengajak pengguna menjaga kebersihan.",
+    title: "Cleanliness-themed Android app",
+    detail:
+      "A mobile app that encourages people to keep their surroundings clean.",
   },
 ] as const;
 
 export const projectFilters: { id: ProjectId; label: string }[] = [
-  { id: "ta", label: "Tugas akhir" },
+  { id: "ta", label: "Thesis" },
   { id: "reservasi", label: "Ratatouille" },
   { id: "kost", label: "Kost Putra Pendekar" },
-  { id: "portofolio", label: "Portofolio ini" },
+  { id: "portofolio", label: "This portfolio" },
 ];
 
 export type SkillLayer = {
@@ -258,8 +265,8 @@ export type SkillLayer = {
 
 export const skillLayers: SkillLayer[] = [
   {
-    name: "Antarmuka",
-    description: "Halaman yang dilihat dan dipakai orang.",
+    name: "Frontend",
+    description: "The pages people see and use.",
     skills: [
       { name: "HTML", usedIn: ["ta", "reservasi", "kost", "portofolio"] },
       { name: "CSS", usedIn: ["ta", "reservasi", "kost", "portofolio"] },
@@ -272,8 +279,8 @@ export const skillLayers: SkillLayer[] = [
     ],
   },
   {
-    name: "Server dan logika",
-    description: "Aturan bisnis, login, dan hak akses pengguna.",
+    name: "Backend and logic",
+    description: "Business rules, sign-in, and user permissions.",
     skills: [
       { name: "PHP", usedIn: ["ta", "reservasi"] },
       { name: "Laravel", usedIn: ["ta"] },
@@ -283,7 +290,7 @@ export const skillLayers: SkillLayer[] = [
   },
   {
     name: "Data",
-    description: "Menyimpan, mengolah, dan menampilkan data.",
+    description: "Storing, processing, and presenting data.",
     skills: [
       { name: "PostgreSQL", usedIn: ["ta"] },
       { name: "Supabase", usedIn: ["ta"] },
@@ -293,44 +300,56 @@ export const skillLayers: SkillLayer[] = [
     ],
   },
   {
-    name: "Desain dan alat kerja",
-    description: "Dari rancangan sampai kode berjalan di komputer saya.",
+    name: "Design and tools",
+    description: "From mockups to code running on my machine.",
     skills: [
       { name: "Figma", usedIn: [] },
-      { name: "Git dan GitHub", usedIn: ["portofolio"] },
+      { name: "Git & GitHub", usedIn: ["portofolio"] },
       { name: "Vite", usedIn: ["ta"] },
       { name: "Laragon", usedIn: ["kost", "portofolio"] },
-      { name: "Pengembangan dibantu AI", usedIn: ["portofolio"] },
+      { name: "AI-assisted development", usedIn: ["portofolio"] },
     ],
   },
 ];
 
+export const ribbonTools = [
+  "Laravel",
+  "Next.js",
+  "React",
+  "PHP",
+  "PostgreSQL",
+  "Tailwind CSS",
+  "JavaScript",
+  "Figma",
+  "Chart.js",
+  "Git & GitHub",
+];
+
 export const skillNote =
-  "Level saya masih dasar hingga menengah. Excel dan Google Sheets sudah sampai menengah, dan saya terbiasa memakai AI untuk belajar hal baru dengan cepat.";
+  "My level is beginner to intermediate, with Excel and Google Sheets at intermediate. I lean on AI to pick up new tools quickly.";
 
 export const languages = [
-  { name: "Bahasa Indonesia", level: "Bahasa ibu" },
-  { name: "Bahasa Inggris", level: "CEPT 513, CILACS UII" },
+  { name: "Indonesian", level: "Native" },
+  { name: "English", level: "CEPT 513, CILACS UII" },
 ];
 
 export const workflow = [
   {
-    title: "Perencanaan kebutuhan",
+    title: "Requirements planning",
     detail:
-      "Memahami masalah dan kebutuhan setiap pengguna sebelum menulis kode.",
+      "Understand the problem and what each user needs before writing code.",
   },
   {
-    title: "Desain bersama pengguna",
+    title: "User design",
     detail:
-      "Merancang alur dan tampilan, lalu meminta masukan dari calon pengguna.",
+      "Sketch the flows and screens, then get feedback from future users.",
   },
   {
-    title: "Konstruksi",
-    detail:
-      "Membangun fitur sedikit demi sedikit dan memperbaikinya dari masukan.",
+    title: "Construction",
+    detail: "Build features step by step and refine them as feedback comes in.",
   },
   {
-    title: "Implementasi",
-    detail: "Menguji, menyiapkan data, lalu menyerahkan sistem untuk dipakai.",
+    title: "Cutover",
+    detail: "Test, prepare the data, and hand the system over to its users.",
   },
 ];

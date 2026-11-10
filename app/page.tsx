@@ -2,8 +2,9 @@ import type { CSSProperties } from "react";
 import Image from "next/image";
 import portrait from "@/public/foto-anugrah.png";
 import { BrowserShowcase } from "@/components/browser-showcase";
+import { CopyEmail } from "@/components/copy-email";
 import { DeviceShowcase } from "@/components/device-showcase";
-import { RevealOnScroll } from "@/components/reveal-on-scroll";
+import { Interactions } from "@/components/interactions";
 import { SiteHeader } from "@/components/site-header";
 import { SkillExplorer } from "@/components/skill-explorer";
 import {
@@ -14,8 +15,9 @@ import {
   otherProjects,
   profile,
   projectFilters,
-  skillLayers,
   projects,
+  ribbonTools,
+  skillLayers,
   skillNote,
   workflow,
   type ShowcaseProject,
@@ -40,7 +42,7 @@ function ExternalLink({
       className={`text-link ${className}`}
     >
       {label}
-      <span className="sr-only"> (membuka tab baru)</span>
+      <span className="sr-only"> (opens in a new tab)</span>
     </a>
   );
 }
@@ -69,7 +71,7 @@ function ProjectVisual({ project }: { project: ShowcaseProject }) {
     );
   }
   return (
-    <ul className="phones" aria-label={`Tampilan aplikasi ${project.title}`}>
+    <ul className="phones" aria-label={`${project.title} app screens`}>
       {project.screens.map((screen, index) => (
         <li
           key={screen.label}
@@ -77,10 +79,10 @@ function ProjectVisual({ project }: { project: ShowcaseProject }) {
           data-reveal
           style={delay(index)}
         >
-          <div className="phone-frame">
+          <div className="phone-frame" data-tilt>
             <Image
               src={screen.image}
-              alt={`Layar ${screen.label.toLowerCase()} aplikasi ${project.title}`}
+              alt={`${project.title}: ${screen.label} screen`}
               sizes="(min-width: 1024px) 14rem, 62vw"
             />
           </div>
@@ -93,7 +95,13 @@ function ProjectVisual({ project }: { project: ShowcaseProject }) {
 
 function ProjectCard({ project }: { project: ShowcaseProject }) {
   return (
-    <article className="showcase-card" id={project.id} data-reveal>
+    <article
+      className="showcase-card"
+      id={project.id}
+      data-layout={project.layout}
+      data-reveal
+      data-spotlight
+    >
       <div className="showcase-text">
         <div>
           <p className="card-meta">
@@ -113,7 +121,7 @@ function ProjectCard({ project }: { project: ShowcaseProject }) {
               ))}
             </ul>
           )}
-          <Stack items={project.stack} label={`Teknologi ${project.title}`} />
+          <Stack items={project.stack} label={`${project.title} tech stack`} />
           {project.link && (
             <ExternalLink
               href={project.link.href}
@@ -123,8 +131,10 @@ function ProjectCard({ project }: { project: ShowcaseProject }) {
           )}
         </div>
       </div>
-      <ProjectVisual project={project} />
-      {project.note && <p className="showcase-note">{project.note}</p>}
+      <div className="showcase-visual">
+        <ProjectVisual project={project} />
+        {project.note && <p className="showcase-note">{project.note}</p>}
+      </div>
     </article>
   );
 }
@@ -146,11 +156,31 @@ function OtherIcon({ name }: { name: string }) {
   );
 }
 
+function ToolRibbon() {
+  const row = (hidden: boolean) => (
+    <ul className="ribbon-row" aria-hidden={hidden || undefined}>
+      {ribbonTools.map((tool) => (
+        <li key={tool}>{tool}</li>
+      ))}
+    </ul>
+  );
+  return (
+    <div className="ribbon" role="region" aria-label="Tools I use most">
+      <div className="ribbon-band">
+        <div className="ribbon-track">
+          {row(false)}
+          {row(true)}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <>
-      <a href="#konten" className="skip-link">
-        Langsung ke konten
+      <a href="#content" className="skip-link">
+        Skip to content
       </a>
       <SiteHeader
         links={navLinks}
@@ -158,9 +188,9 @@ export default function Home() {
         name={profile.name}
         cvUrl={contact.cvUrl}
       />
-      <RevealOnScroll />
+      <Interactions />
 
-      <section id="beranda" className="hero">
+      <section id="home" className="hero">
         <div className="hero-inner">
           <p className="hero-status">
             <span className="status-dot" aria-hidden="true" />
@@ -183,16 +213,16 @@ export default function Home() {
             <p className="hero-role">{profile.role}</p>
             <p className="hero-intro">{profile.intro}</p>
             <div className="hero-actions">
-              <a href="#proyek" className="btn btn-mark">
-                Lihat proyek saya
+              <a href="#projects" className="btn btn-mark">
+                See my projects
               </a>
               <a href={contact.cvUrl} className="btn btn-ghost" download>
-                Unduh CV (PDF)
+                Download CV (PDF)
               </a>
             </div>
           </div>
 
-          <div className="hero-photo">
+          <div className="hero-photo" data-tilt>
             <div className="hero-arch" aria-hidden="true" />
             <Image
               src={portrait}
@@ -205,18 +235,18 @@ export default function Home() {
         </div>
       </section>
 
-      <main id="konten">
-        <section id="tentang" className="section about">
+      <main id="content">
+        <section id="about" className="section about">
           <div className="wrap about-grid">
             <h2 className="section-title" data-reveal>
-              Tentang saya
+              About me
             </h2>
             <div data-reveal style={delay(1)}>
               <p className="about-lead">{about.lead}</p>
               <p className="about-body">{about.body}</p>
               <dl className="facts">
-                {about.facts.map((fact) => (
-                  <div key={fact.label}>
+                {about.facts.map((fact, index) => (
+                  <div key={fact.label} data-reveal style={delay(index + 2)}>
                     <dt>{fact.label}</dt>
                     <dd>{fact.value}</dd>
                   </div>
@@ -226,22 +256,23 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="proyek" className="section projects">
+        <ToolRibbon />
+
+        <section id="projects" className="section projects">
           <div className="wrap">
             <div className="section-head" data-reveal>
-              <h2 className="section-title">Proyek pilihan</h2>
+              <h2 className="section-title">Selected projects</h2>
               <p className="section-lede">
-                Aplikasi web dan desain UI/UX yang pernah saya kerjakan, sendiri
-                maupun bersama tim. Semua tampilan di bawah diambil dari proyek
-                aslinya.
+                Web apps and UI/UX designs I&apos;ve worked on, solo and with a
+                team. Every screen below comes from the real project.
               </p>
-              <nav className="project-nav" aria-label="Daftar proyek">
+              <nav className="project-nav" aria-label="Project list">
                 {projects.map((project) => (
                   <a key={project.id} href={`#${project.id}`}>
                     {project.navLabel}
                   </a>
                 ))}
-                <a href="#proyek-lain">Proyek lain</a>
+                <a href="#more-projects">More projects</a>
               </nav>
             </div>
 
@@ -249,14 +280,19 @@ export default function Home() {
               <ProjectCard key={project.id} project={project} />
             ))}
 
-            <div className="other" id="proyek-lain" data-reveal>
-              <h3 className="other-title">Proyek lain semasa kuliah</h3>
+            <div className="other" id="more-projects" data-reveal>
+              <h3 className="other-title">More from university</h3>
               <p className="other-lede">
-                Proyek Informatics Expo yang membentuk dasar saya.
+                Informatics Expo projects that built my foundation.
               </p>
               <ul className="other-list">
                 {otherProjects.map((project, index) => (
-                  <li key={project.title} data-reveal style={delay(index)}>
+                  <li
+                    key={project.title}
+                    data-reveal
+                    data-spotlight
+                    style={delay(index)}
+                  >
                     <span className="other-icon" aria-hidden="true">
                       <OtherIcon name={project.icon} />
                     </span>
@@ -270,13 +306,13 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="keahlian" className="section skills">
+        <section id="skills" className="section skills">
           <div className="wrap">
             <div className="section-head" data-reveal>
-              <h2 className="section-title">Keahlian</h2>
+              <h2 className="section-title">Skills</h2>
               <p className="section-lede">
-                Dikelompokkan menurut bagian aplikasi web yang saya kerjakan.
-                Pilih sebuah proyek untuk melihat alat yang saya pakai di sana.
+                Grouped by the part of a web app they cover. Pick a project to
+                see its tools, or tap a tool to see where I used it.
               </p>
             </div>
 
@@ -298,10 +334,10 @@ export default function Home() {
 
             <div className="workflow">
               <div data-reveal>
-                <h3 className="workflow-title">Cara saya bekerja</h3>
+                <h3 className="workflow-title">How I work</h3>
                 <p className="section-lede">
-                  Empat tahap Rapid Application Development (RAD) yang saya
-                  pakai saat membangun sistem tugas akhir.
+                  The four Rapid Application Development (RAD) phases I followed
+                  to build my thesis system.
                 </p>
               </div>
               <ol className="workflow-steps">
@@ -320,21 +356,24 @@ export default function Home() {
         </section>
       </main>
 
-      <section id="kontak" className="contact">
+      <section id="contact" className="contact">
         <div className="wrap" data-reveal>
           <h2 className="contact-title">
-            Sedang membuka posisi web developer atau analis data?
+            Hiring a web developer or data analyst?
           </h2>
           <div className="contact-body">
             <p className="contact-lede">
-              Kirim email atau hubungi saya lewat LinkedIn. CV lengkap saya juga
-              bisa langsung diunduh.
+              Send me an email or reach out on LinkedIn. My full CV is ready to
+              download too.
             </p>
             <div>
               <a href={`mailto:${contact.email}`} className="contact-email">
                 {contact.email}
               </a>
               <ul className="contact-links">
+                <li>
+                  <CopyEmail email={contact.email} />
+                </li>
                 <li>
                   <a
                     href={contact.linkedin}
@@ -357,7 +396,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a href={contact.cvUrl} download className="btn btn-mark">
-                    Unduh CV (PDF)
+                    Download CV (PDF)
                   </a>
                 </li>
               </ul>
@@ -369,8 +408,8 @@ export default function Home() {
       <footer className="site-footer">
         <div className="wrap site-footer-inner">
           <p>© {profile.name}</p>
-          <a href="#beranda" className="footer-top">
-            Kembali ke atas
+          <a href="#home" className="footer-top">
+            Back to top
           </a>
         </div>
       </footer>

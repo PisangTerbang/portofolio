@@ -47,7 +47,7 @@ export function BrowserShowcase({ title, screens }: Props) {
       <div
         className="showcase-tabs"
         role="tablist"
-        aria-label={`Halaman ${title}`}
+        aria-label={`${title} pages`}
         onKeyDown={onKeyDown}
       >
         {screens.map((screen, index) => (
@@ -88,11 +88,7 @@ export function BrowserShowcase({ title, screens }: Props) {
             <Image
               key={screen.id}
               src={screen.image}
-              alt={
-                index === active
-                  ? `Halaman ${screen.label.toLowerCase()} ${title}`
-                  : ""
-              }
+              alt={index === active ? `${title}: ${screen.label} page` : ""}
               aria-hidden={index === active ? undefined : true}
               className="browser-shot"
               data-active={index === active ? "" : undefined}
@@ -121,7 +117,7 @@ export function BrowserShowcase({ title, screens }: Props) {
               aria-pressed={playing}
               onClick={() => setPlaying((value) => !value)}
             >
-              {playing ? "Kembali ke atas" : "Gulir halaman"}
+              {playing ? "Back to top" : "Scroll page"}
             </button>
           )}
         </div>

@@ -6,7 +6,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Anugrah Prima Pratama | Web Developer",
   description:
-    "Portofolio Anugrah Prima Pratama, web developer dan lulusan Informatika Universitas Islam Indonesia: proyek aplikasi web, keahlian, dan artikel jurnal.",
+    "Portfolio of Anugrah Prima Pratama, web developer and Informatics graduate from Universitas Islam Indonesia: web app projects, UI/UX design, skills, and a published journal article.",
 };
 
 export const viewport: Viewport = {
@@ -15,7 +15,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="id">
+    <html lang="en">
       <body>{children}</body>
     </html>
   );

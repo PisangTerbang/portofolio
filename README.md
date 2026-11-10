@@ -1,41 +1,41 @@
-# Portofolio Anugrah Prima Pratama
+# Anugrah Prima Pratama — Portfolio
 
-Situs portofolio satu halaman: profil, proyek web, keahlian, perjalanan, dan kontak.
+A one-page portfolio: about, projects, skills, and contact.
 
-Dibangun dengan Next.js 16, React 19, TypeScript, dan Tailwind CSS 4.
+Built with Next.js 16, React 19, TypeScript, and Tailwind CSS 4.
 
-## Struktur
+## Structure
 
-- `lib/data.ts` berisi semua teks dan data situs: profil, proyek, keahlian, dan linimasa.
-- `app/page.tsx` menyusun halaman.
-- `app/globals.css` berisi seluruh gaya. Warna tema ada di blok `:root` paling atas.
-- `components/` berisi header, penjelajah keahlian, dan ilustrasi proyek.
-- `public/` berisi foto profil dan CV dalam format PDF.
+- `lib/data.ts` holds all of the site's text and data: profile, projects, skills, and workflow.
+- `app/page.tsx` assembles the page.
+- `app/globals.css` holds every style. Theme colors live in the `:root` block at the top.
+- `components/` holds the header, project showcases, skill explorer, and interaction effects.
+- `public/` holds the profile photo, project screenshots, and the CV as a PDF.
 
-## Menjalankan secara lokal
+## Run locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-Buka [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000).
 
-### Lewat Laragon di Windows
+### Through Laragon on Windows
 
-Nginx Laragon meneruskan `http://portofolio.test` ke aplikasi Next.js di port 3000. Nyalakan Nginx di Laragon, lalu jalankan dari folder proyek:
+Laragon's Nginx proxies `http://portofolio.test` to the Next.js app on port 3000. Start Nginx in Laragon, then run this from the project folder:
 
 ```bash
 npm run dev -- --hostname 127.0.0.1
 ```
 
-Buka [http://portofolio.test](http://portofolio.test). Konfigurasi proxy-nya ada di `C:\laragon\etc\nginx\sites-enabled\portofolio.test.conf`.
+Open [http://portofolio.test](http://portofolio.test). The proxy config lives in `C:\laragon\etc\nginx\sites-enabled\portofolio.test.conf`.
 
-## Build produksi
+## Production build
 
 ```bash
 npm run build
 npm run start
 ```
 
-Situs ini di-deploy ke Vercel.
+The site deploys to Vercel automatically on every push to `main`.
