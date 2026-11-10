@@ -53,6 +53,7 @@ export function SiteHeader({ links, initials, name, cvUrl }: Props) {
 
   return (
     <header className="site-header" data-solid={solid ? "" : undefined}>
+      <div className="scroll-progress" aria-hidden="true" />
       <nav aria-label="Navigasi utama" className="site-nav">
         <a href="#beranda" className="brand" onClick={() => setOpen(false)}>
           <span className="brand-mark" aria-hidden="true">

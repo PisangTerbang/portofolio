@@ -1,3 +1,10 @@
+import type { StaticImageData } from "next/image";
+import rataBeranda from "@/public/ratatouille/beranda.webp";
+import rataChatbot from "@/public/ratatouille/chatbot.webp";
+import rataDenah from "@/public/ratatouille/denah-3d.webp";
+import rataMenu from "@/public/ratatouille/menu.webp";
+import rataReservasi from "@/public/ratatouille/reservasi.webp";
+import rataStatistik from "@/public/ratatouille/statistik.webp";
 import smartBeranda from "@/public/smartcycle/beranda.webp";
 import smartEdukasi from "@/public/smartcycle/edukasi.webp";
 import smartLokasi from "@/public/smartcycle/lokasi.webp";
@@ -26,7 +33,6 @@ export const navLinks = [
   { id: "tentang", label: "Tentang" },
   { id: "proyek", label: "Proyek" },
   { id: "keahlian", label: "Keahlian" },
-  { id: "perjalanan", label: "Perjalanan" },
   { id: "kontak", label: "Kontak" },
 ];
 
@@ -88,16 +94,35 @@ export const featuredProject = {
   },
 };
 
+export type ShowcaseScreen = {
+  id: string;
+  label: string;
+  image: StaticImageData;
+  scroll?: boolean;
+};
+
+export const webShowcase = {
+  id: "reservasi" as ProjectId,
+  year: "2024",
+  context: "Proyek tim, capstone Pengembangan Sistem Informasi",
+  title: "Ratatouille",
+  subtitle: "Sistem informasi restoran tematik",
+  summary:
+    "Pelanggan bisa memesan meja, memesan makanan, dan bertanya lewat chatbot, sementara pengelola mengatur menu dan memantau statistik penjualan. Dikerjakan tim lima orang dengan metode Kanban.",
+  role: "Peran saya di frontend: membangun antarmuka yang responsif serta fitur registrasi, reservasi, dan pemesanan.",
+  stack: ["HTML", "CSS", "JavaScript", "PHP", "Kanban"],
+  screens: [
+    { id: "beranda", label: "Beranda", image: rataBeranda, scroll: true },
+    { id: "menu", label: "Menu", image: rataMenu },
+    { id: "reservasi", label: "Reservasi", image: rataReservasi },
+    { id: "denah", label: "Denah 3D", image: rataDenah },
+    { id: "chatbot", label: "Chatbot", image: rataChatbot },
+    { id: "statistik", label: "Statistik", image: rataStatistik },
+  ] satisfies ShowcaseScreen[],
+  note: "Beranda diambil dari mockup Figma tim, halaman lain dari aplikasi yang sudah jadi.",
+};
+
 export const webProjects: Project[] = [
-  {
-    id: "reservasi",
-    year: "2024",
-    context: "Informatics Expo 2024",
-    title: "Aplikasi reservasi restoran",
-    summary:
-      "Pelanggan memesan meja secara daring, admin mengelola reservasi dan menu lewat dasbor. Dilengkapi login, operasi CRUD, dan integrasi LLM.",
-    stack: ["HTML", "CSS", "PHP", "Integrasi LLM"],
-  },
   {
     id: "kost",
     year: "2026",
@@ -117,7 +142,7 @@ export const webProjects: Project[] = [
     context: "Proyek pribadi",
     title: "Situs portofolio ini",
     summary:
-      "Satu halaman yang menampilkan proyek, keahlian, dan perjalanan saya. Dibangun dengan Next.js dan Tailwind CSS, dengan bantuan AI.",
+      "Satu halaman yang menampilkan proyek dan keahlian saya. Dibangun dengan Next.js dan Tailwind CSS, dengan bantuan AI.",
     stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4"],
     link: {
       label: "Lihat kodenya di GitHub",
@@ -162,7 +187,7 @@ export const otherProjects = [
 
 export const projectFilters: { id: ProjectId; label: string }[] = [
   { id: "ta", label: "Tugas akhir" },
-  { id: "reservasi", label: "Reservasi restoran" },
+  { id: "reservasi", label: "Ratatouille" },
   { id: "kost", label: "Kost Putra Pendekar" },
   { id: "portofolio", label: "Portofolio ini" },
 ];
@@ -181,7 +206,7 @@ export const skillLayers: SkillLayer[] = [
       { name: "HTML", usedIn: ["ta", "reservasi", "kost", "portofolio"] },
       { name: "CSS", usedIn: ["ta", "reservasi", "kost", "portofolio"] },
       { name: "Tailwind CSS", usedIn: ["ta", "portofolio"] },
-      { name: "JavaScript", usedIn: ["ta", "kost", "portofolio"] },
+      { name: "JavaScript", usedIn: ["ta", "reservasi", "kost", "portofolio"] },
       { name: "Alpine.js", usedIn: ["ta"] },
       { name: "Blade", usedIn: ["ta"] },
       { name: "React", usedIn: ["kost", "portofolio"] },
@@ -195,7 +220,6 @@ export const skillLayers: SkillLayer[] = [
       { name: "PHP", usedIn: ["ta", "reservasi"] },
       { name: "Laravel", usedIn: ["ta"] },
       { name: "Laravel Breeze", usedIn: ["ta"] },
-      { name: "Integrasi LLM", usedIn: ["reservasi"] },
       { name: "Java", usedIn: [] },
     ],
   },
@@ -250,70 +274,5 @@ export const workflow = [
   {
     title: "Implementasi",
     detail: "Menguji, menyiapkan data, lalu menyerahkan sistem untuk dipakai.",
-  },
-];
-
-export type Milestone = {
-  date: string;
-  kind: "Pendidikan" | "Publikasi" | "Sertifikat" | "Organisasi";
-  title: string;
-  detail: string;
-  link?: { label: string; href: string };
-};
-
-export const milestones: Milestone[] = [
-  {
-    date: "Okt 2026",
-    kind: "Pendidikan",
-    title: "Wisuda dan Surat Penghargaan Rektor UII",
-    detail:
-      "Diberikan untuk lulusan cum laude, periode I tahun akademik 2026/2027.",
-  },
-  {
-    date: "Agu 2026",
-    kind: "Publikasi",
-    title: "Artikel jurnal terbit di Jurnal EDUSAINTEK, Vol 13 No 1",
-    detail:
-      "Perancangan Sistem Informasi Penetapan Judul Tugas Akhir Berjenjang Berbasis Web dengan RAD. Ditulis bersama Sri Mulyati.",
-    link: {
-      label: "Lihat artikel",
-      href: "https://doi.org/10.47668/edusaintek.v13i1.2286",
-    },
-  },
-  {
-    date: "Jul 2026",
-    kind: "Pendidikan",
-    title: "Lulus S1 Informatika, Universitas Islam Indonesia",
-    detail: "IPK 3,64 dari 4,00.",
-  },
-  {
-    date: "Apr 2026",
-    kind: "Sertifikat",
-    title: "Tes bahasa Inggris CEPT, skor 513",
-    detail: "Diselenggarakan CILACS UII, berlaku dua tahun.",
-  },
-  {
-    date: "Jan 2025",
-    kind: "Sertifikat",
-    title: "Cisco Networking Academy: Junior Cybersecurity Analyst Career Path",
-    detail: "Sertifikat tingkat pelajar.",
-  },
-  {
-    date: "2024",
-    kind: "Organisasi",
-    title: "Staf divisi perlengkapan, orientasi mahasiswa baru jurusan",
-    detail: "Menyiapkan kebutuhan perlengkapan acara.",
-  },
-  {
-    date: "2023",
-    kind: "Organisasi",
-    title: "Staf divisi keamanan, PORSEMATIK",
-    detail: "Menjaga keamanan dan ketertiban acara olahraga jurusan.",
-  },
-  {
-    date: "Sep 2022",
-    kind: "Pendidikan",
-    title: "Mulai kuliah S1 Informatika di Universitas Islam Indonesia",
-    detail: "Yogyakarta.",
   },
 ];

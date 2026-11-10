@@ -1,7 +1,9 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import portrait from "@/public/foto-anugrah.png";
+import { BrowserShowcase } from "@/components/browser-showcase";
 import { DashboardMock, ProjectThumb } from "@/components/illustrations";
+import { RevealOnScroll } from "@/components/reveal-on-scroll";
 import { SiteHeader } from "@/components/site-header";
 import { SkillExplorer } from "@/components/skill-explorer";
 import {
@@ -9,7 +11,6 @@ import {
   contact,
   featuredProject,
   languages,
-  milestones,
   navLinks,
   otherProjects,
   profile,
@@ -18,8 +19,43 @@ import {
   skillNote,
   uiuxProject,
   webProjects,
+  webShowcase,
   workflow,
 } from "@/lib/data";
+
+const delay = (index: number) => ({ "--d": index }) as CSSProperties;
+
+function ExternalLink({
+  href,
+  label,
+  className,
+}: {
+  href: string;
+  label: string;
+  className: string;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`text-link ${className}`}
+    >
+      {label}
+      <span className="sr-only"> (membuka tab baru)</span>
+    </a>
+  );
+}
+
+function Stack({ items, label }: { items: string[]; label: string }) {
+  return (
+    <ul className="stack" aria-label={label}>
+      {items.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+    </ul>
+  );
+}
 
 export default function Home() {
   return (
@@ -33,6 +69,7 @@ export default function Home() {
         name={profile.name}
         cvUrl={contact.cvUrl}
       />
+      <RevealOnScroll />
 
       <section id="beranda" className="hero">
         <div className="hero-inner">
@@ -71,7 +108,7 @@ export default function Home() {
             <Image
               src={portrait}
               alt={profile.photoAlt}
-              sizes="(min-width: 1024px) 40vw, (min-width: 640px) 24rem, 88vw"
+              sizes="(min-width: 1024px) 20rem, (min-width: 640px) 17rem, 62vw"
               loading="eager"
               fetchPriority="high"
             />
@@ -82,8 +119,10 @@ export default function Home() {
       <main id="konten">
         <section id="tentang" className="section about">
           <div className="wrap about-grid">
-            <h2 className="section-title">Tentang saya</h2>
-            <div>
+            <h2 className="section-title" data-reveal>
+              Tentang saya
+            </h2>
+            <div data-reveal style={delay(1)}>
               <p className="about-lead">{about.lead}</p>
               <p className="about-body">{about.body}</p>
               <dl className="facts">
@@ -100,15 +139,15 @@ export default function Home() {
 
         <section id="proyek" className="section projects">
           <div className="wrap">
-            <div className="section-head">
+            <div className="section-head" data-reveal>
               <h2 className="section-title">Proyek pilihan</h2>
               <p className="section-lede">
-                Tiga aplikasi web yang saya bangun, situs ini sendiri, dan satu
-                desain aplikasi mobile. Proyek terbesar saya ada di paling atas.
+                Aplikasi web dan desain UI/UX yang pernah saya kerjakan, sendiri
+                maupun bersama tim. Proyek terbesar saya ada di paling atas.
               </p>
             </div>
 
-            <article className="feature">
+            <article className="feature" data-reveal>
               <div className="feature-text">
                 <p className="feature-meta">
                   <span className="feature-year">{featuredProject.year}</span>
@@ -124,92 +163,75 @@ export default function Home() {
                   ))}
                 </ul>
 
-                <ul
-                  className="stack"
-                  aria-label={`Teknologi ${featuredProject.title}`}
-                >
-                  {featuredProject.stack.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-
-                <a
+                <Stack
+                  items={featuredProject.stack}
+                  label={`Teknologi ${featuredProject.title}`}
+                />
+                <ExternalLink
                   href={featuredProject.link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-link feature-link"
-                >
-                  {featuredProject.link.label}
-                  <span className="sr-only"> (membuka tab baru)</span>
-                </a>
+                  label={featuredProject.link.label}
+                  className="feature-link"
+                />
               </div>
               <div className="feature-visual">
                 <DashboardMock roles={featuredProject.roles} />
               </div>
             </article>
 
-            <ol className="project-list">
-              {webProjects.map((project) => (
-                <li key={project.id} className="project-row">
-                  <ProjectThumb id={project.id} />
-                  <div>
-                    <p className="project-meta">
-                      <span className="project-year">{project.year}</span>
-                      <span>{project.context}</span>
-                    </p>
-                    <h3 className="project-title">{project.title}</h3>
-                    <p className="project-summary">{project.summary}</p>
-                    <ul
-                      className="stack"
-                      aria-label={`Teknologi ${project.title}`}
-                    >
-                      {project.stack.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                    {project.link && (
-                      <a
-                        href={project.link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-link project-link"
-                      >
-                        {project.link.label}
-                        <span className="sr-only"> (membuka tab baru)</span>
-                      </a>
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ol>
+            <article className="showcase-card" data-reveal>
+              <div className="showcase-text">
+                <div>
+                  <p className="feature-meta">
+                    <span className="feature-year">{webShowcase.year}</span>
+                    <span>{webShowcase.context}</span>
+                  </p>
+                  <h3 className="showcase-title">{webShowcase.title}</h3>
+                  <p className="showcase-subtitle">{webShowcase.subtitle}</p>
+                </div>
+                <div>
+                  <p className="showcase-summary">{webShowcase.summary}</p>
+                  <p className="showcase-role">{webShowcase.role}</p>
+                  <Stack
+                    items={webShowcase.stack}
+                    label={`Teknologi ${webShowcase.title}`}
+                  />
+                </div>
+              </div>
+              <BrowserShowcase
+                title={webShowcase.title}
+                screens={webShowcase.screens}
+              />
+              <p className="showcase-note">{webShowcase.note}</p>
+            </article>
 
-            <article className="uiux">
-              <div className="uiux-text">
+            <article className="showcase-card" data-reveal>
+              <div className="showcase-text">
                 <div>
                   <p className="feature-meta">
                     <span className="feature-year">{uiuxProject.context}</span>
                   </p>
-                  <h3 className="uiux-title">{uiuxProject.title}</h3>
-                  <p className="uiux-subtitle">{uiuxProject.subtitle}</p>
+                  <h3 className="showcase-title">{uiuxProject.title}</h3>
+                  <p className="showcase-subtitle">{uiuxProject.subtitle}</p>
                 </div>
                 <div>
-                  <p className="uiux-summary">{uiuxProject.summary}</p>
-                  <ul
-                    className="stack"
-                    aria-label={`Alat dan metode ${uiuxProject.title}`}
-                  >
-                    {uiuxProject.stack.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
+                  <p className="showcase-summary">{uiuxProject.summary}</p>
+                  <Stack
+                    items={uiuxProject.stack}
+                    label={`Alat dan metode ${uiuxProject.title}`}
+                  />
                 </div>
               </div>
               <ul
                 className="phones"
                 aria-label={`Tampilan aplikasi ${uiuxProject.title}`}
               >
-                {uiuxProject.screens.map((screen) => (
-                  <li key={screen.label} className="phone">
+                {uiuxProject.screens.map((screen, index) => (
+                  <li
+                    key={screen.label}
+                    className="phone"
+                    data-reveal
+                    style={delay(index)}
+                  >
                     <div className="phone-frame">
                       <Image
                         src={screen.image}
@@ -223,7 +245,39 @@ export default function Home() {
               </ul>
             </article>
 
-            <div className="other">
+            <ol className="project-list">
+              {webProjects.map((project, index) => (
+                <li
+                  key={project.id}
+                  className="project-row"
+                  data-reveal
+                  style={delay(index)}
+                >
+                  <ProjectThumb id={project.id} />
+                  <div>
+                    <p className="project-meta">
+                      <span className="project-year">{project.year}</span>
+                      <span>{project.context}</span>
+                    </p>
+                    <h3 className="project-title">{project.title}</h3>
+                    <p className="project-summary">{project.summary}</p>
+                    <Stack
+                      items={project.stack}
+                      label={`Teknologi ${project.title}`}
+                    />
+                    {project.link && (
+                      <ExternalLink
+                        href={project.link.href}
+                        label={project.link.label}
+                        className="project-link"
+                      />
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ol>
+
+            <div className="other" data-reveal>
               <h3 className="other-title">Di luar web</h3>
               <p className="other-lede">
                 Proyek kuliah lain yang membentuk dasar saya.
@@ -243,7 +297,7 @@ export default function Home() {
 
         <section id="keahlian" className="section skills">
           <div className="wrap">
-            <div className="section-head">
+            <div className="section-head" data-reveal>
               <h2 className="section-title">Keahlian</h2>
               <p className="section-lede">
                 Dikelompokkan menurut bagian aplikasi web yang saya kerjakan.
@@ -251,9 +305,11 @@ export default function Home() {
               </p>
             </div>
 
-            <SkillExplorer layers={skillLayers} filters={projectFilters} />
+            <div data-reveal>
+              <SkillExplorer layers={skillLayers} filters={projectFilters} />
+            </div>
 
-            <div className="skills-foot">
+            <div className="skills-foot" data-reveal>
               <p className="skill-note">{skillNote}</p>
               <dl className="languages">
                 {languages.map((language) => (
@@ -266,14 +322,16 @@ export default function Home() {
             </div>
 
             <div className="workflow">
-              <h3 className="workflow-title">Cara saya bekerja</h3>
-              <p className="section-lede">
-                Empat tahap Rapid Application Development (RAD) yang saya pakai
-                saat membangun sistem tugas akhir.
-              </p>
+              <div data-reveal>
+                <h3 className="workflow-title">Cara saya bekerja</h3>
+                <p className="section-lede">
+                  Empat tahap Rapid Application Development (RAD) yang saya
+                  pakai saat membangun sistem tugas akhir.
+                </p>
+              </div>
               <ol className="workflow-steps">
                 {workflow.map((step, index) => (
-                  <li key={step.title}>
+                  <li key={step.title} data-reveal style={delay(index)}>
                     <span className="step-num" aria-hidden="true">
                       {index + 1}
                     </span>
@@ -285,48 +343,10 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        <section id="perjalanan" className="section journey">
-          <div className="wrap journey-grid">
-            <div className="journey-intro">
-              <h2 className="section-title">Perjalanan</h2>
-              <p className="section-lede">
-                Dari mahasiswa baru di 2022 sampai wisuda cum laude di 2026.
-              </p>
-            </div>
-            <ol className="timeline">
-              {milestones.map((item) => (
-                <li
-                  key={item.title}
-                  className="milestone"
-                  data-kind={item.kind}
-                >
-                  <time>{item.date}</time>
-                  <div>
-                    <p className="milestone-kind">{item.kind}</p>
-                    <h3>{item.title}</h3>
-                    <p>{item.detail}</p>
-                    {item.link && (
-                      <a
-                        href={item.link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-link milestone-link"
-                      >
-                        {item.link.label}
-                        <span className="sr-only"> (membuka tab baru)</span>
-                      </a>
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
       </main>
 
       <section id="kontak" className="contact">
-        <div className="wrap">
+        <div className="wrap" data-reveal>
           <h2 className="contact-title">
             Sedang membuka posisi web developer atau analis data?
           </h2>

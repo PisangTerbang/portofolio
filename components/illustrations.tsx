@@ -79,91 +79,6 @@ export function DashboardMock({ roles }: { roles: string[] }) {
   );
 }
 
-function ReservasiArt() {
-  const tables = [
-    [52, 56, true],
-    [112, 56, false],
-    [172, 56, true],
-    [52, 128, false],
-    [112, 128, true],
-    [172, 128, false],
-  ] as const;
-  const seats = [
-    [0, -27],
-    [0, 27],
-    [-27, 0],
-    [27, 0],
-  ];
-  return (
-    <svg viewBox="0 0 320 190" role="presentation">
-      <rect width="320" height="190" style={fill(c.bg)} />
-      <rect
-        x="14"
-        y="14"
-        width="200"
-        height="162"
-        rx="8"
-        style={fill(c.panel)}
-      />
-      {tables.map(([cx, cy, booked]) => (
-        <g key={`${cx}-${cy}`}>
-          {seats.map(([dx, dy]) => (
-            <circle
-              key={`${dx}${dy}`}
-              cx={cx + dx}
-              cy={cy + dy}
-              r="5"
-              style={fill(booked ? c.accent : c.dim)}
-            />
-          ))}
-          <circle
-            cx={cx}
-            cy={cy}
-            r="17"
-            strokeWidth="1.5"
-            style={fill(
-              booked ? c.accent : c.bg,
-              booked ? c.accentLight : c.dim,
-            )}
-          />
-        </g>
-      ))}
-      <rect
-        x="226"
-        y="18"
-        width="62"
-        height="9"
-        rx="4.5"
-        style={fill(c.text)}
-      />
-      {[38, 62, 86, 110].map((y, i) => (
-        <rect
-          key={y}
-          x="226"
-          y={y}
-          width="80"
-          height="18"
-          rx="9"
-          strokeWidth="1.5"
-          style={fill(
-            i === 1 ? c.accentLight : c.panel,
-            i === 1 ? c.accent : c.line,
-          )}
-        />
-      ))}
-      <rect
-        x="226"
-        y="146"
-        width="80"
-        height="26"
-        rx="13"
-        style={fill(c.accent)}
-      />
-      <rect x="244" y="156" width="44" height="6" rx="3" style={fill(c.base)} />
-    </svg>
-  );
-}
-
 function KostArt() {
   return (
     <svg viewBox="0 0 320 190" role="presentation">
@@ -322,7 +237,6 @@ export function ProjectThumb({ id }: { id: ProjectId }) {
   return (
     <div className="thumb" aria-hidden="true">
       <BrowserBar />
-      {id === "reservasi" && <ReservasiArt />}
       {id === "kost" && <KostArt />}
       {id === "portofolio" && <PortfolioArt />}
     </div>
