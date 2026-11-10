@@ -25,9 +25,9 @@ export const profile = {
   nameLines: ["Anugrah", "Prima", "Pratama"],
   initials: "AP",
   status: "Open to work",
-  role: "Web developer and Informatics graduate from Universitas Islam Indonesia.",
+  role: "AI-native web developer and Informatics graduate from Universitas Islam Indonesia.",
   intro:
-    "I build web applications from the interface down to the database. My biggest project, a thesis title approval system for five user roles, was published as a journal article.",
+    "I build web applications end to end with AI coding agents in my daily workflow, from the interface down to the database. My biggest project, a thesis title approval system for five user roles, was published as a journal article.",
   photoAlt: "Anugrah Prima Pratama in a black shirt with his arms crossed",
 };
 
@@ -35,7 +35,7 @@ export const contact = {
   email: "primaamk99@gmail.com",
   linkedin: "https://www.linkedin.com/in/anugrahprimapratama",
   github: "https://github.com/PisangTerbang",
-  cvUrl: "/Anugrah Prima Pratama-resume.pdf",
+  cvUrl: "/Anugrah-Prima-Pratama-CV.pdf",
 };
 
 export const navLinks = [
@@ -46,20 +46,54 @@ export const navLinks = [
 ];
 
 export const about = {
-  lead: "I'm an Informatics graduate who builds web applications end to end: designing the flow, writing the server logic, storing the data, and polishing the interface.",
-  body: "In university I built a project for the Informatics Expo every year, then finished with a Laravel-based information system for my thesis, now published in Jurnal EDUSAINTEK. I use AI every day to learn faster and ship sooner.",
+  lead: "I'm an AI-native developer. I build web applications end to end with AI coding agents in the loop, while I make the decisions, review every change, and own the result.",
+  body: "In university I built a project for the Informatics Expo every year, then finished with a Laravel-based information system for my thesis, now published in Jurnal EDUSAINTEK. This portfolio was built the same way: me directing an AI coding agent from the first idea to a live site.",
   facts: [
     {
       label: "Education",
       value: "Bachelor of Informatics, Universitas Islam Indonesia (2022–2026)",
     },
-    { label: "Honors", value: "Cum laude, GPA 3.64 out of 4.00" },
-    { label: "Focus", value: "Web applications with Laravel and Next.js" },
+    {
+      label: "Honors",
+      value: "Cum laude, GPA 3.64, with a Rector's Letter of Commendation",
+    },
+    {
+      label: "Focus",
+      value: "AI-native web development with Laravel and Next.js",
+    },
+    { label: "Based in", value: "Pekanbaru, Riau, Indonesia" },
+    {
+      label: "Certification",
+      value: "Cisco Junior Cybersecurity Analyst Career Path",
+    },
     {
       label: "Looking for",
-      value: "Software engineer (web) or data analyst roles",
+      value: "Software engineer or data analyst roles",
     },
   ],
+};
+
+export const aiLoop = {
+  title: "How I build with AI",
+  lede: "AI is part of my everyday workflow, not an add-on. It writes fast. I make the decisions and own the result.",
+  steps: [
+    {
+      title: "Direct",
+      detail:
+        "I define the goal, the constraints, and the design, then brief the AI coding agent in plain language.",
+    },
+    {
+      title: "Build",
+      detail:
+        "The agent drafts the code, from database queries to interface components, while I steer every iteration.",
+    },
+    {
+      title: "Review and ship",
+      detail:
+        "I read the changes, test them in the browser, fix what's off, and deploy.",
+    },
+  ],
+  tools: ["Claude Code", "Vibe coding", "Prompts and specs", "Code review"],
 };
 
 export type ProjectId = "ta" | "reservasi" | "kost" | "portofolio";
@@ -113,6 +147,7 @@ export const projects: ShowcaseProject[] = [
       "Designed the flow and database with Rapid Application Development (RAD)",
       "Built sign-in and access control for five user roles",
       "Created dashboards with charts to track submissions",
+      "Developed with AI coding tools in the loop",
       "Wrote up the results as a journal article with Sri Mulyati",
     ],
     stack: [
@@ -148,7 +183,7 @@ export const projects: ShowcaseProject[] = [
     id: "project-ratatouille",
     navLabel: "Ratatouille",
     kind: "Web app",
-    context: "Team capstone, Information Systems Development",
+    context: "Team capstone, Informatics Expo",
     title: "Ratatouille",
     subtitle: "Information system for a themed restaurant",
     summary:
@@ -214,7 +249,7 @@ export const projects: ShowcaseProject[] = [
     title: "This portfolio",
     subtitle: "My projects and skills on one page",
     summary:
-      "Built with Next.js and Tailwind CSS, with help from AI. It works on phones and laptops alike, and redeploys automatically whenever a change lands on GitHub.",
+      "Built AI-native: I directed an AI coding agent through every iteration, from design to deployment, and reviewed each change. It redeploys automatically whenever a change lands on GitHub.",
     stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4"],
     link: {
       label: "View the code on GitHub",
@@ -265,6 +300,19 @@ export type SkillLayer = {
 
 export const skillLayers: SkillLayer[] = [
   {
+    name: "AI-native workflow",
+    description: "How I build: AI agents in the loop, me in charge.",
+    skills: [
+      { name: "Claude Code", usedIn: ["ta", "portofolio"] },
+      { name: "Vibe coding", usedIn: ["ta", "kost", "portofolio"] },
+      { name: "Prompts and specs", usedIn: ["ta", "kost", "portofolio"] },
+      {
+        name: "Reviewing AI-written code",
+        usedIn: ["ta", "kost", "portofolio"],
+      },
+    ],
+  },
+  {
     name: "Frontend",
     description: "The pages people see and use.",
     skills: [
@@ -293,6 +341,8 @@ export const skillLayers: SkillLayer[] = [
     description: "Storing, processing, and presenting data.",
     skills: [
       { name: "PostgreSQL", usedIn: ["ta"] },
+      { name: "SQL", usedIn: ["ta", "reservasi"] },
+      { name: "Database design", usedIn: ["ta"] },
       { name: "Supabase", usedIn: ["ta"] },
       { name: "Chart.js", usedIn: ["ta"] },
       { name: "Excel", usedIn: [] },
@@ -307,12 +357,14 @@ export const skillLayers: SkillLayer[] = [
       { name: "Git & GitHub", usedIn: ["portofolio"] },
       { name: "Vite", usedIn: ["ta"] },
       { name: "Laragon", usedIn: ["kost", "portofolio"] },
-      { name: "AI-assisted development", usedIn: ["portofolio"] },
+      { name: "Android Studio", usedIn: [] },
     ],
   },
 ];
 
 export const ribbonTools = [
+  "AI-native",
+  "Claude Code",
   "Laravel",
   "Next.js",
   "React",
@@ -326,11 +378,11 @@ export const ribbonTools = [
 ];
 
 export const skillNote =
-  "My level is beginner to intermediate, with Excel and Google Sheets at intermediate. I lean on AI to pick up new tools quickly.";
+  "My hands-on level is beginner to intermediate, with Excel and Google Sheets at intermediate. Working AI-native lets me pick up new tools quickly and still ship working software.";
 
 export const languages = [
   { name: "Indonesian", level: "Native" },
-  { name: "English", level: "CEPT 513, CILACS UII" },
+  { name: "English", level: "Passive, CEPT 513 (CILACS UII)" },
 ];
 
 export const workflow = [

@@ -4,9 +4,9 @@ import "@fontsource-variable/source-serif-4/standard.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Anugrah Prima Pratama | Web Developer",
+  title: "Anugrah Prima Pratama | AI-native Web Developer",
   description:
-    "Portfolio of Anugrah Prima Pratama, web developer and Informatics graduate from Universitas Islam Indonesia: web app projects, UI/UX design, skills, and a published journal article.",
+    "Portfolio of Anugrah Prima Pratama, an AI-native web developer and Informatics graduate from Universitas Islam Indonesia: web app projects, UI/UX design, skills, and a published journal article.",
 };
 
 export const viewport: Viewport = {

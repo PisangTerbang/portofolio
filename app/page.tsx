@@ -9,6 +9,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SkillExplorer } from "@/components/skill-explorer";
 import {
   about,
+  aiLoop,
   contact,
   languages,
   navLinks,
@@ -256,6 +257,43 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="section ai-native" aria-labelledby="ai-title">
+          <div className="wrap">
+            <div className="ai-head" data-reveal>
+              <h2 id="ai-title" className="section-title">
+                {aiLoop.title}
+              </h2>
+              <p className="section-lede">{aiLoop.lede}</p>
+            </div>
+            <ol className="ai-steps">
+              {aiLoop.steps.map((step, index) => (
+                <li
+                  key={step.title}
+                  className="ai-step"
+                  data-reveal
+                  data-spotlight
+                  style={delay(index)}
+                >
+                  <span className="ai-step-num" aria-hidden="true">
+                    {index + 1}
+                  </span>
+                  <h3>{step.title}</h3>
+                  <p>{step.detail}</p>
+                </li>
+              ))}
+            </ol>
+            <ul
+              className="ai-tools"
+              aria-label="AI tools and practices"
+              data-reveal
+            >
+              {aiLoop.tools.map((tool) => (
+                <li key={tool}>{tool}</li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
         <ToolRibbon />
 
         <section id="projects" className="section projects">
@@ -334,10 +372,10 @@ export default function Home() {
 
             <div className="workflow">
               <div data-reveal>
-                <h3 className="workflow-title">How I work</h3>
+                <h3 className="workflow-title">How I run a project</h3>
                 <p className="section-lede">
                   The four Rapid Application Development (RAD) phases I followed
-                  to build my thesis system.
+                  to build my thesis system, with AI in the loop at every step.
                 </p>
               </div>
               <ol className="workflow-steps">
@@ -358,13 +396,12 @@ export default function Home() {
 
       <section id="contact" className="contact">
         <div className="wrap" data-reveal>
-          <h2 className="contact-title">
-            Hiring a web developer or data analyst?
-          </h2>
+          <h2 className="contact-title">Hiring an AI-native developer?</h2>
           <div className="contact-body">
             <p className="contact-lede">
-              Send me an email or reach out on LinkedIn. My full CV is ready to
-              download too.
+              I&apos;m looking for a fresh-graduate role as a software engineer
+              or data analyst. Send me an email, reach out on LinkedIn, or
+              download my CV.
             </p>
             <div>
               <a href={`mailto:${contact.email}`} className="contact-email">
