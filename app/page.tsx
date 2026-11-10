@@ -2,25 +2,23 @@ import type { CSSProperties } from "react";
 import Image from "next/image";
 import portrait from "@/public/foto-anugrah.png";
 import { BrowserShowcase } from "@/components/browser-showcase";
-import { DashboardMock, ProjectThumb } from "@/components/illustrations";
+import { DeviceShowcase } from "@/components/device-showcase";
 import { RevealOnScroll } from "@/components/reveal-on-scroll";
 import { SiteHeader } from "@/components/site-header";
 import { SkillExplorer } from "@/components/skill-explorer";
 import {
   about,
   contact,
-  featuredProject,
   languages,
   navLinks,
   otherProjects,
   profile,
   projectFilters,
   skillLayers,
+  projects,
   skillNote,
-  uiuxProject,
-  webProjects,
-  webShowcase,
   workflow,
+  type ShowcaseProject,
 } from "@/lib/data";
 
 const delay = (index: number) => ({ "--d": index }) as CSSProperties;
@@ -54,6 +52,97 @@ function Stack({ items, label }: { items: string[]; label: string }) {
         <li key={item}>{item}</li>
       ))}
     </ul>
+  );
+}
+
+function ProjectVisual({ project }: { project: ShowcaseProject }) {
+  if (project.visual === "browser") {
+    return <BrowserShowcase title={project.title} screens={project.screens} />;
+  }
+  if (project.visual === "devices") {
+    return (
+      <DeviceShowcase
+        title={project.title}
+        desktop={project.desktop}
+        mobile={project.mobile}
+      />
+    );
+  }
+  return (
+    <ul className="phones" aria-label={`Tampilan aplikasi ${project.title}`}>
+      {project.screens.map((screen, index) => (
+        <li
+          key={screen.label}
+          className="phone"
+          data-reveal
+          style={delay(index)}
+        >
+          <div className="phone-frame">
+            <Image
+              src={screen.image}
+              alt={`Layar ${screen.label.toLowerCase()} aplikasi ${project.title}`}
+              sizes="(min-width: 1024px) 14rem, 62vw"
+            />
+          </div>
+          <p className="phone-label">{screen.label}</p>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function ProjectCard({ project }: { project: ShowcaseProject }) {
+  return (
+    <article className="showcase-card" id={project.id} data-reveal>
+      <div className="showcase-text">
+        <div>
+          <p className="card-meta">
+            <span className="card-kind">{project.kind}</span>
+            <span>{project.context}</span>
+          </p>
+          <h3 className="showcase-title">{project.title}</h3>
+          <p className="showcase-subtitle">{project.subtitle}</p>
+        </div>
+        <div>
+          <p className="showcase-summary">{project.summary}</p>
+          {project.role && <p className="showcase-role">{project.role}</p>}
+          {project.highlights && (
+            <ul className="showcase-list">
+              {project.highlights.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          )}
+          <Stack items={project.stack} label={`Teknologi ${project.title}`} />
+          {project.link && (
+            <ExternalLink
+              href={project.link.href}
+              label={project.link.label}
+              className="showcase-link"
+            />
+          )}
+        </div>
+      </div>
+      <ProjectVisual project={project} />
+      {project.note && <p className="showcase-note">{project.note}</p>}
+    </article>
+  );
+}
+
+const iconPaths: Record<string, string> = {
+  design:
+    "M12 3a9 9 0 1 0 0 18c1.1 0 1.6-.8 1.6-1.6 0-.5-.2-.8-.4-1.1-.2-.3-.4-.6-.4-1.1 0-.9.7-1.6 1.6-1.6H16a5 5 0 0 0 5-5C21 6.6 17 3 12 3Zm-5 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm3-4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm3 4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z",
+  desktop:
+    "M4 4h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-6v2h3v2H7v-2h3v-2H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm1 2v8h14V6H5Z",
+  mobile:
+    "M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm0 3v13h8V5H8Zm3 14.5v1h2v-1h-2Z",
+};
+
+function OtherIcon({ name }: { name: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" focusable="false">
+      <path d={iconPaths[name]} />
+    </svg>
   );
 }
 
@@ -143,151 +232,37 @@ export default function Home() {
               <h2 className="section-title">Proyek pilihan</h2>
               <p className="section-lede">
                 Aplikasi web dan desain UI/UX yang pernah saya kerjakan, sendiri
-                maupun bersama tim. Proyek terbesar saya ada di paling atas.
+                maupun bersama tim. Semua tampilan di bawah diambil dari proyek
+                aslinya.
               </p>
+              <nav className="project-nav" aria-label="Daftar proyek">
+                {projects.map((project) => (
+                  <a key={project.id} href={`#${project.id}`}>
+                    {project.navLabel}
+                  </a>
+                ))}
+                <a href="#proyek-lain">Proyek lain</a>
+              </nav>
             </div>
 
-            <article className="feature" data-reveal>
-              <div className="feature-text">
-                <p className="feature-meta">
-                  <span className="feature-year">{featuredProject.year}</span>
-                  <span>{featuredProject.context}</span>
-                </p>
-                <h3 className="feature-title">{featuredProject.title}</h3>
-                <p className="feature-summary">{featuredProject.summary}</p>
+            {projects.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
 
-                <h4 className="feature-subtitle">Yang saya kerjakan</h4>
-                <ul className="feature-list">
-                  {featuredProject.highlights.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-
-                <Stack
-                  items={featuredProject.stack}
-                  label={`Teknologi ${featuredProject.title}`}
-                />
-                <ExternalLink
-                  href={featuredProject.link.href}
-                  label={featuredProject.link.label}
-                  className="feature-link"
-                />
-              </div>
-              <div className="feature-visual">
-                <DashboardMock roles={featuredProject.roles} />
-              </div>
-            </article>
-
-            <article className="showcase-card" data-reveal>
-              <div className="showcase-text">
-                <div>
-                  <p className="feature-meta">
-                    <span className="feature-year">{webShowcase.year}</span>
-                    <span>{webShowcase.context}</span>
-                  </p>
-                  <h3 className="showcase-title">{webShowcase.title}</h3>
-                  <p className="showcase-subtitle">{webShowcase.subtitle}</p>
-                </div>
-                <div>
-                  <p className="showcase-summary">{webShowcase.summary}</p>
-                  <p className="showcase-role">{webShowcase.role}</p>
-                  <Stack
-                    items={webShowcase.stack}
-                    label={`Teknologi ${webShowcase.title}`}
-                  />
-                </div>
-              </div>
-              <BrowserShowcase
-                title={webShowcase.title}
-                screens={webShowcase.screens}
-              />
-              <p className="showcase-note">{webShowcase.note}</p>
-            </article>
-
-            <article className="showcase-card" data-reveal>
-              <div className="showcase-text">
-                <div>
-                  <p className="feature-meta">
-                    <span className="feature-year">{uiuxProject.context}</span>
-                  </p>
-                  <h3 className="showcase-title">{uiuxProject.title}</h3>
-                  <p className="showcase-subtitle">{uiuxProject.subtitle}</p>
-                </div>
-                <div>
-                  <p className="showcase-summary">{uiuxProject.summary}</p>
-                  <Stack
-                    items={uiuxProject.stack}
-                    label={`Alat dan metode ${uiuxProject.title}`}
-                  />
-                </div>
-              </div>
-              <ul
-                className="phones"
-                aria-label={`Tampilan aplikasi ${uiuxProject.title}`}
-              >
-                {uiuxProject.screens.map((screen, index) => (
-                  <li
-                    key={screen.label}
-                    className="phone"
-                    data-reveal
-                    style={delay(index)}
-                  >
-                    <div className="phone-frame">
-                      <Image
-                        src={screen.image}
-                        alt={`Layar ${screen.label.toLowerCase()} aplikasi ${uiuxProject.title}`}
-                        sizes="(min-width: 1024px) 14rem, 62vw"
-                      />
-                    </div>
-                    <p className="phone-label">{screen.label}</p>
-                  </li>
-                ))}
-              </ul>
-            </article>
-
-            <ol className="project-list">
-              {webProjects.map((project, index) => (
-                <li
-                  key={project.id}
-                  className="project-row"
-                  data-reveal
-                  style={delay(index)}
-                >
-                  <ProjectThumb id={project.id} />
-                  <div>
-                    <p className="project-meta">
-                      <span className="project-year">{project.year}</span>
-                      <span>{project.context}</span>
-                    </p>
-                    <h3 className="project-title">{project.title}</h3>
-                    <p className="project-summary">{project.summary}</p>
-                    <Stack
-                      items={project.stack}
-                      label={`Teknologi ${project.title}`}
-                    />
-                    {project.link && (
-                      <ExternalLink
-                        href={project.link.href}
-                        label={project.link.label}
-                        className="project-link"
-                      />
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ol>
-
-            <div className="other" data-reveal>
-              <h3 className="other-title">Di luar web</h3>
+            <div className="other" id="proyek-lain" data-reveal>
+              <h3 className="other-title">Proyek lain semasa kuliah</h3>
               <p className="other-lede">
-                Proyek kuliah lain yang membentuk dasar saya.
+                Proyek Informatics Expo yang membentuk dasar saya.
               </p>
               <ul className="other-list">
-                {otherProjects.map((project) => (
-                  <li key={project.title}>
-                    <p className="other-year">{project.year}</p>
+                {otherProjects.map((project, index) => (
+                  <li key={project.title} data-reveal style={delay(index)}>
+                    <span className="other-icon" aria-hidden="true">
+                      <OtherIcon name={project.icon} />
+                    </span>
                     <h4>{project.title}</h4>
                     <p>{project.detail}</p>
+                    <span className="other-tool">{project.tool}</span>
                   </li>
                 ))}
               </ul>
@@ -393,8 +368,10 @@ export default function Home() {
 
       <footer className="site-footer">
         <div className="wrap site-footer-inner">
-          <p>© 2026 {profile.name}</p>
-          <p>Dibangun dengan Next.js dan Tailwind CSS.</p>
+          <p>© {profile.name}</p>
+          <a href="#beranda" className="footer-top">
+            Kembali ke atas
+          </a>
         </div>
       </footer>
     </>

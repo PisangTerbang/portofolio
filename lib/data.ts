@@ -1,4 +1,8 @@
 import type { StaticImageData } from "next/image";
+import kostDesktop from "@/public/kost/desktop.webp";
+import kostMobile from "@/public/kost/mobile.webp";
+import portoDesktop from "@/public/portofolio/desktop.webp";
+import portoMobile from "@/public/portofolio/mobile.webp";
 import rataBeranda from "@/public/ratatouille/beranda.webp";
 import rataChatbot from "@/public/ratatouille/chatbot.webp";
 import rataDenah from "@/public/ratatouille/denah-3d.webp";
@@ -10,6 +14,11 @@ import smartEdukasi from "@/public/smartcycle/edukasi.webp";
 import smartLokasi from "@/public/smartcycle/lokasi.webp";
 import smartPenukaran from "@/public/smartcycle/penukaran.webp";
 import smartScan from "@/public/smartcycle/scan.webp";
+import taDosen from "@/public/tugas-akhir/dosen.webp";
+import taKetuaLab from "@/public/tugas-akhir/ketua-lab.webp";
+import taKoordinator from "@/public/tugas-akhir/koordinator.webp";
+import taMahasiswa from "@/public/tugas-akhir/mahasiswa.webp";
+import taProdi from "@/public/tugas-akhir/prodi.webp";
 
 export const profile = {
   name: "Anugrah Prima Pratama",
@@ -55,45 +64,6 @@ export const about = {
 
 export type ProjectId = "ta" | "reservasi" | "kost" | "portofolio";
 
-export type Project = {
-  id: ProjectId;
-  year: string;
-  context: string;
-  title: string;
-  summary: string;
-  stack: string[];
-  link?: { label: string; href: string };
-};
-
-export const featuredProject = {
-  id: "ta" as ProjectId,
-  year: "2026",
-  context: "Tugas akhir, terbit di Jurnal EDUSAINTEK",
-  title: "Sistem penetapan judul tugas akhir berjenjang",
-  summary:
-    "Aplikasi web yang memindahkan pengajuan dan penetapan judul tugas akhir ke satu tempat. Setiap pengajuan melewati beberapa jenjang persetujuan, dan setiap pihak masuk dengan perannya sendiri.",
-  roles: ["Mahasiswa", "Dosen", "Ketua lab", "Prodi", "Koordinator TA"],
-  highlights: [
-    "Merancang alur dan basis data dengan metode Rapid Application Development (RAD)",
-    "Membangun login dan hak akses untuk lima peran pengguna",
-    "Membuat dasbor dengan grafik untuk memantau pengajuan",
-    "Menulis hasilnya menjadi artikel jurnal bersama Sri Mulyati",
-  ],
-  stack: [
-    "Laravel 12",
-    "PHP 8.2",
-    "PostgreSQL (Supabase)",
-    "Blade",
-    "Tailwind CSS",
-    "Alpine.js",
-    "Chart.js",
-  ],
-  link: {
-    label: "Baca artikel jurnalnya",
-    href: "https://doi.org/10.47668/edusaintek.v13i1.2286",
-  },
-};
-
 export type ShowcaseScreen = {
   id: string;
   label: string;
@@ -101,89 +71,177 @@ export type ShowcaseScreen = {
   scroll?: boolean;
 };
 
-export const webShowcase = {
-  id: "reservasi" as ProjectId,
-  year: "2024",
-  context: "Proyek tim, capstone Pengembangan Sistem Informasi",
-  title: "Ratatouille",
-  subtitle: "Sistem informasi restoran tematik",
-  summary:
-    "Pelanggan bisa memesan meja, memesan makanan, dan bertanya lewat chatbot, sementara pengelola mengatur menu dan memantau statistik penjualan. Dikerjakan tim lima orang dengan metode Kanban.",
-  role: "Peran saya di frontend: membangun antarmuka yang responsif serta fitur registrasi, reservasi, dan pemesanan.",
-  stack: ["HTML", "CSS", "JavaScript", "PHP", "Kanban"],
-  screens: [
-    { id: "beranda", label: "Beranda", image: rataBeranda, scroll: true },
-    { id: "menu", label: "Menu", image: rataMenu },
-    { id: "reservasi", label: "Reservasi", image: rataReservasi },
-    { id: "denah", label: "Denah 3D", image: rataDenah },
-    { id: "chatbot", label: "Chatbot", image: rataChatbot },
-    { id: "statistik", label: "Statistik", image: rataStatistik },
-  ] satisfies ShowcaseScreen[],
-  note: "Beranda diambil dari mockup Figma tim, halaman lain dari aplikasi yang sudah jadi.",
+type ProjectBase = {
+  id: string;
+  navLabel: string;
+  kind: string;
+  context: string;
+  title: string;
+  subtitle: string;
+  summary: string;
+  role?: string;
+  highlights?: string[];
+  stack: string[];
+  link?: { label: string; href: string };
+  note?: string;
 };
 
-export const webProjects: Project[] = [
+export type ShowcaseProject =
+  | (ProjectBase & { visual: "browser"; screens: ShowcaseScreen[] })
+  | (ProjectBase & {
+      visual: "phones";
+      screens: { image: StaticImageData; label: string }[];
+    })
+  | (ProjectBase & {
+      visual: "devices";
+      desktop: StaticImageData;
+      mobile: StaticImageData;
+    });
+
+export const projects: ShowcaseProject[] = [
   {
-    id: "kost",
-    year: "2026",
-    context: "Proyek pribadi",
-    title: "Landing page Kost Putra Pendekar",
+    id: "proyek-tugas-akhir",
+    navLabel: "Tugas akhir",
+    kind: "Aplikasi web",
+    context: "Tugas akhir, terbit di Jurnal EDUSAINTEK",
+    title: "Sistem penetapan judul tugas akhir berjenjang",
+    subtitle: "Lima peran, satu alur persetujuan",
     summary:
-      "Halaman promosi untuk kost putra di Yogyakarta: fasilitas, harga sewa, lokasi di Google Maps, dan tombol untuk menghubungi pemilik lewat WhatsApp.",
-    stack: ["Next.js", "React", "Laragon"],
+      "Aplikasi web yang memindahkan pengajuan dan penetapan judul tugas akhir ke satu tempat. Setiap pengajuan melewati beberapa jenjang persetujuan, dan setiap pihak masuk dengan perannya sendiri.",
+    highlights: [
+      "Merancang alur dan basis data dengan metode RAD",
+      "Membangun login dan hak akses untuk lima peran pengguna",
+      "Membuat dasbor dengan grafik untuk memantau pengajuan",
+      "Menulis hasilnya menjadi artikel jurnal bersama Sri Mulyati",
+    ],
+    stack: [
+      "Laravel 12",
+      "PHP 8.2",
+      "PostgreSQL (Supabase)",
+      "Blade",
+      "Tailwind CSS",
+      "Alpine.js",
+      "Chart.js",
+    ],
+    link: {
+      label: "Baca artikel jurnalnya",
+      href: "https://doi.org/10.47668/edusaintek.v13i1.2286",
+    },
+    note: "Tampilan aplikasi asli dengan data contoh. Pilih peran untuk melihat halamannya.",
+    visual: "browser",
+    screens: [
+      { id: "mahasiswa", label: "Mahasiswa", image: taMahasiswa, scroll: true },
+      { id: "dosen", label: "Dosen", image: taDosen, scroll: true },
+      { id: "ketua-lab", label: "Ketua lab", image: taKetuaLab, scroll: true },
+      { id: "prodi", label: "Prodi", image: taProdi, scroll: true },
+      {
+        id: "koordinator",
+        label: "Koordinator TA",
+        image: taKoordinator,
+        scroll: true,
+      },
+    ],
+  },
+  {
+    id: "proyek-ratatouille",
+    navLabel: "Ratatouille",
+    kind: "Aplikasi web",
+    context: "Proyek tim, capstone Pengembangan Sistem Informasi",
+    title: "Ratatouille",
+    subtitle: "Sistem informasi restoran tematik",
+    summary:
+      "Pelanggan bisa memesan meja, memesan makanan, dan bertanya lewat chatbot, sementara pengelola mengatur menu dan memantau statistik penjualan. Dikerjakan tim lima orang dengan metode Kanban.",
+    role: "Peran saya di frontend: membangun antarmuka yang responsif serta fitur registrasi, reservasi, dan pemesanan.",
+    stack: ["HTML", "CSS", "JavaScript", "PHP", "Kanban"],
+    note: "Beranda diambil dari mockup Figma tim, halaman lain dari aplikasi yang sudah jadi.",
+    visual: "browser",
+    screens: [
+      { id: "beranda", label: "Beranda", image: rataBeranda, scroll: true },
+      { id: "menu", label: "Menu", image: rataMenu },
+      { id: "reservasi", label: "Reservasi", image: rataReservasi },
+      { id: "denah", label: "Denah 3D", image: rataDenah },
+      { id: "chatbot", label: "Chatbot", image: rataChatbot },
+      { id: "statistik", label: "Statistik", image: rataStatistik },
+    ],
+  },
+  {
+    id: "proyek-smartcycle",
+    navLabel: "SmartCycle",
+    kind: "Desain UI/UX",
+    context: "Aplikasi mobile",
+    title: "SmartCycle",
+    subtitle: "Aplikasi daur ulang sampah",
+    summary:
+      "Aplikasi daur ulang sampah kami dirancang untuk memudahkan masyarakat dalam proses daur ulang, memberikan edukasi tentang pentingnya daur ulang, serta membantu pengguna menemukan tempat pengumpulan sampah terdekat. Untuk mengukur efektivitas dan kegunaan aplikasi, kami melakukan survei terhadap sejumlah pengguna.",
+    stack: ["Figma", "Prototipe", "Survei pengguna"],
+    visual: "phones",
+    screens: [
+      { image: smartBeranda, label: "Beranda" },
+      { image: smartLokasi, label: "Lokasi daur ulang" },
+      { image: smartScan, label: "Scan sampah" },
+      { image: smartEdukasi, label: "Edukasi" },
+      { image: smartPenukaran, label: "Penukaran poin" },
+    ],
+  },
+  {
+    id: "proyek-kost",
+    navLabel: "Kost Putra Pendekar",
+    kind: "Landing page",
+    context: "Proyek pribadi, sudah online",
+    title: "Kost Putra Pendekar",
+    subtitle: "Halaman promosi kost putra di Yogyakarta",
+    summary:
+      "Menampilkan fasilitas, galeri foto kamar, harga sewa, tanya jawab, dan lokasi di Google Maps. Calon penghuni bisa langsung menghubungi pemilik lewat WhatsApp.",
+    stack: ["Next.js", "React", "Tailwind CSS", "Motion"],
     link: {
       label: "Kunjungi situsnya",
       href: "https://kost-pendekar.vercel.app",
     },
+    visual: "devices",
+    desktop: kostDesktop,
+    mobile: kostMobile,
   },
   {
-    id: "portofolio",
-    year: "2026",
-    context: "Proyek pribadi",
+    id: "proyek-portofolio",
+    navLabel: "Portofolio ini",
+    kind: "Situs pribadi",
+    context: "Proyek pribadi, sudah online",
     title: "Situs portofolio ini",
+    subtitle: "Proyek dan keahlian saya dalam satu halaman",
     summary:
-      "Satu halaman yang menampilkan proyek dan keahlian saya. Dibangun dengan Next.js dan Tailwind CSS, dengan bantuan AI.",
+      "Dibangun dengan Next.js dan Tailwind CSS, dengan bantuan AI. Tampil rapi di ponsel maupun laptop, dan otomatis diperbarui setiap ada perubahan di GitHub.",
     stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4"],
     link: {
       label: "Lihat kodenya di GitHub",
       href: "https://github.com/PisangTerbang/portofolio",
     },
+    visual: "devices",
+    desktop: portoDesktop,
+    mobile: portoMobile,
   },
 ];
-
-export const uiuxProject = {
-  context: "Proyek UI/UX",
-  title: "SmartCycle",
-  subtitle: "Aplikasi daur ulang sampah",
-  summary:
-    "Aplikasi daur ulang sampah kami dirancang untuk memudahkan masyarakat dalam proses daur ulang, memberikan edukasi tentang pentingnya daur ulang, serta membantu pengguna menemukan tempat pengumpulan sampah terdekat. Untuk mengukur efektivitas dan kegunaan aplikasi, kami melakukan survei terhadap sejumlah pengguna.",
-  stack: ["Figma", "Prototipe", "Survei pengguna"],
-  screens: [
-    { image: smartBeranda, label: "Beranda" },
-    { image: smartLokasi, label: "Lokasi daur ulang" },
-    { image: smartScan, label: "Scan sampah" },
-    { image: smartEdukasi, label: "Edukasi" },
-    { image: smartPenukaran, label: "Penukaran poin" },
-  ],
-};
 
 export const otherProjects = [
   {
-    year: "2022",
+    icon: "design",
+    tool: "Figma",
     title: "Desain UI/UX bertema kebersihan lingkungan",
-    detail: "Informatics Expo 2022, dirancang di Figma.",
+    detail: "Merancang tampilan dan alur penggunaan untuk Informatics Expo.",
   },
   {
-    year: "2023",
+    icon: "desktop",
+    tool: "Java",
     title: "Aplikasi penyalur sisa makanan ke lembaga sosial",
-    detail: "Informatics Expo 2023, dibangun dengan Java.",
+    detail:
+      "Menyalurkan sisa makanan dari perusahaan ke LSM agar tidak terbuang.",
   },
   {
-    year: "2024",
+    icon: "mobile",
+    tool: "Android Studio",
     title: "Aplikasi Android bertema kebersihan",
-    detail: "Informatics Expo 2024, dibangun dengan Android Studio.",
+    detail: "Aplikasi mobile untuk mengajak pengguna menjaga kebersihan.",
   },
-];
+] as const;
 
 export const projectFilters: { id: ProjectId; label: string }[] = [
   { id: "ta", label: "Tugas akhir" },
@@ -205,7 +263,7 @@ export const skillLayers: SkillLayer[] = [
     skills: [
       { name: "HTML", usedIn: ["ta", "reservasi", "kost", "portofolio"] },
       { name: "CSS", usedIn: ["ta", "reservasi", "kost", "portofolio"] },
-      { name: "Tailwind CSS", usedIn: ["ta", "portofolio"] },
+      { name: "Tailwind CSS", usedIn: ["ta", "kost", "portofolio"] },
       { name: "JavaScript", usedIn: ["ta", "reservasi", "kost", "portofolio"] },
       { name: "Alpine.js", usedIn: ["ta"] },
       { name: "Blade", usedIn: ["ta"] },

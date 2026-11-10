@@ -1,7 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useId, useRef, useState, type KeyboardEvent } from "react";
+import {
+  useId,
+  useRef,
+  useState,
+  type CSSProperties,
+  type KeyboardEvent,
+} from "react";
 import type { ShowcaseScreen } from "@/lib/data";
 
 type Props = {
@@ -91,6 +97,19 @@ export function BrowserShowcase({ title, screens }: Props) {
               className="browser-shot"
               data-active={index === active ? "" : undefined}
               data-scroll={screen.scroll ? "" : undefined}
+              style={
+                {
+                  "--scroll-time": `${Math.min(
+                    3 +
+                      Math.max(
+                        screen.image.height / screen.image.width - 9 / 16,
+                        0,
+                      ) *
+                        5,
+                    16,
+                  )}s`,
+                } as CSSProperties
+              }
               sizes="(min-width: 1024px) 60rem, 100vw"
               fill
             />
