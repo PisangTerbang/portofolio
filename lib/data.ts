@@ -1,3 +1,9 @@
+import smartBeranda from "@/public/smartcycle/beranda.webp";
+import smartEdukasi from "@/public/smartcycle/edukasi.webp";
+import smartLokasi from "@/public/smartcycle/lokasi.webp";
+import smartPenukaran from "@/public/smartcycle/penukaran.webp";
+import smartScan from "@/public/smartcycle/scan.webp";
+
 export const profile = {
   name: "Anugrah Prima Pratama",
   nameLines: ["Anugrah", "Prima", "Pratama"],
@@ -119,6 +125,22 @@ export const webProjects: Project[] = [
     },
   },
 ];
+
+export const uiuxProject = {
+  context: "Proyek UI/UX",
+  title: "SmartCycle",
+  subtitle: "Aplikasi daur ulang sampah",
+  summary:
+    "Aplikasi daur ulang sampah kami dirancang untuk memudahkan masyarakat dalam proses daur ulang, memberikan edukasi tentang pentingnya daur ulang, serta membantu pengguna menemukan tempat pengumpulan sampah terdekat. Untuk mengukur efektivitas dan kegunaan aplikasi, kami melakukan survei terhadap sejumlah pengguna.",
+  stack: ["Figma", "Prototipe", "Survei pengguna"],
+  screens: [
+    { image: smartBeranda, label: "Beranda" },
+    { image: smartLokasi, label: "Lokasi daur ulang" },
+    { image: smartScan, label: "Scan sampah" },
+    { image: smartEdukasi, label: "Edukasi" },
+    { image: smartPenukaran, label: "Penukaran poin" },
+  ],
+};
 
 export const otherProjects = [
   {

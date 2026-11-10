@@ -16,6 +16,7 @@ import {
   projectFilters,
   skillLayers,
   skillNote,
+  uiuxProject,
   webProjects,
   workflow,
 } from "@/lib/data";
@@ -102,8 +103,8 @@ export default function Home() {
             <div className="section-head">
               <h2 className="section-title">Proyek pilihan</h2>
               <p className="section-lede">
-                Tiga aplikasi web yang saya bangun, ditambah situs ini sendiri.
-                Proyek terbesar saya ada di paling atas.
+                Tiga aplikasi web yang saya bangun, situs ini sendiri, dan satu
+                desain aplikasi mobile. Proyek terbesar saya ada di paling atas.
               </p>
             </div>
 
@@ -181,6 +182,46 @@ export default function Home() {
                 </li>
               ))}
             </ol>
+
+            <article className="uiux">
+              <div className="uiux-text">
+                <div>
+                  <p className="feature-meta">
+                    <span className="feature-year">{uiuxProject.context}</span>
+                  </p>
+                  <h3 className="uiux-title">{uiuxProject.title}</h3>
+                  <p className="uiux-subtitle">{uiuxProject.subtitle}</p>
+                </div>
+                <div>
+                  <p className="uiux-summary">{uiuxProject.summary}</p>
+                  <ul
+                    className="stack"
+                    aria-label={`Alat dan metode ${uiuxProject.title}`}
+                  >
+                    {uiuxProject.stack.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <ul
+                className="phones"
+                aria-label={`Tampilan aplikasi ${uiuxProject.title}`}
+              >
+                {uiuxProject.screens.map((screen) => (
+                  <li key={screen.label} className="phone">
+                    <div className="phone-frame">
+                      <Image
+                        src={screen.image}
+                        alt={`Layar ${screen.label.toLowerCase()} aplikasi ${uiuxProject.title}`}
+                        sizes="(min-width: 1024px) 14rem, 62vw"
+                      />
+                    </div>
+                    <p className="phone-label">{screen.label}</p>
+                  </li>
+                ))}
+              </ul>
+            </article>
 
             <div className="other">
               <h3 className="other-title">Di luar web</h3>

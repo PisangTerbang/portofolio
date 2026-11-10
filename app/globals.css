@@ -1090,6 +1090,122 @@ body::after {
   }
 }
 
+.uiux {
+  overflow: hidden;
+  margin-top: clamp(3.5rem, 7vw, 5rem);
+  border: 1px solid rgb(var(--accent-rgb) / 0.3);
+  border-radius: 1.25rem;
+  background:
+    radial-gradient(
+      ellipse 70% 60% at 50% 100%,
+      rgb(var(--accent-rgb) / 0.16),
+      transparent 70%
+    ),
+    linear-gradient(180deg, var(--surface-2), var(--bg-2));
+  padding: clamp(1.5rem, 4vw, 3.5rem) 0 clamp(2rem, 5vw, 4rem);
+}
+
+.uiux-text {
+  display: grid;
+  gap: 1.25rem;
+  padding-inline: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+.uiux-title {
+  margin-top: 0.85rem;
+  font-family: var(--font-body);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.uiux-subtitle {
+  margin-top: 0.35rem;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--accent-light);
+}
+
+.uiux-summary {
+  max-width: 40rem;
+  color: rgb(var(--text-rgb) / 0.8);
+}
+
+.uiux .stack {
+  margin-top: 1.25rem;
+}
+
+.phones {
+  display: flex;
+  gap: 1rem;
+  margin-top: clamp(2rem, 4vw, 3rem);
+  overflow-x: auto;
+  padding: 0.5rem clamp(1.5rem, 4vw, 3.5rem) 1rem;
+  scroll-padding-inline: clamp(1.5rem, 4vw, 3.5rem);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--accent-rgb) / 0.4) transparent;
+}
+
+.phone {
+  flex: 0 0 min(62%, 15rem);
+  scroll-snap-align: start;
+}
+
+.phone-frame {
+  overflow: hidden;
+  border: 6px solid #050706;
+  border-radius: 1.75rem;
+  background: #050706;
+  box-shadow:
+    0 0 0 1px rgb(var(--accent-rgb) / 0.3),
+    0 1.5rem 3rem rgb(0 0 0 / 0.5);
+}
+
+.phone-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 1.3rem;
+}
+
+.phone-label {
+  margin-top: 0.85rem;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+  color: var(--muted);
+}
+
+@media (min-width: 960px) {
+  .uiux-text {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: start;
+    gap: 3rem;
+  }
+
+  .uiux-summary {
+    margin-top: 2.2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .phones {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.75rem);
+    overflow: visible;
+    padding-bottom: 2rem;
+  }
+
+  .phone:nth-child(even) {
+    transform: translateY(2rem);
+  }
+}
+
 .other {
   margin-top: clamp(3.5rem, 7vw, 5rem);
 }
