@@ -1,255 +1,340 @@
+import type { CSSProperties } from "react";
+import Image from "next/image";
+import portrait from "@/public/foto-anugrah.png";
+import { DashboardMock, ProjectThumb } from "@/components/illustrations";
+import { SiteHeader } from "@/components/site-header";
+import { SkillExplorer } from "@/components/skill-explorer";
 import {
+  about,
   contact,
-  credentials,
-  education,
-  organizations,
+  featuredProject,
+  languages,
+  milestones,
+  navLinks,
+  otherProjects,
   profile,
-  projects,
-  skillGroups,
+  projectFilters,
+  skillLayers,
   skillNote,
+  webProjects,
+  workflow,
 } from "@/lib/data";
 
-const wrap = "mx-auto w-full max-w-5xl px-5 sm:px-8";
-const h2 =
-  "font-display text-3xl font-semibold tracking-tight sm:text-4xl";
-
 export default function Home() {
-  const nameParts = profile.name.split(" ");
-  const hasContact =
-    contact.email || contact.linkedin || contact.github || contact.cvUrl;
-
   return (
     <>
-      <header className="grid-paper border-b border-rule">
-        <div className={`${wrap} pb-16 pt-14 sm:pb-24 sm:pt-24`}>
-          <h1
-            className="font-display font-bold leading-[0.95] tracking-[-0.035em] text-[clamp(3rem,10vw,7.5rem)]"
-            aria-label={profile.name}
-          >
-            {nameParts.map((part) => (
-              <span key={part} className="name-line" aria-hidden="true">
-                <span>{part}</span>
+      <a href="#konten" className="skip-link">
+        Langsung ke konten
+      </a>
+      <SiteHeader
+        links={navLinks}
+        initials={profile.initials}
+        name={profile.name}
+        cvUrl={contact.cvUrl}
+      />
+
+      <section id="beranda" className="hero">
+        <div className="hero-inner">
+          <p className="hero-status">
+            <span className="status-dot" aria-hidden="true" />
+            {profile.status}
+          </p>
+
+          <h1 className="hero-name">
+            {profile.nameLines.map((line, index) => (
+              <span
+                key={line}
+                className="hero-name-line"
+                style={{ "--i": index } as CSSProperties}
+              >
+                <span>{line} </span>
               </span>
             ))}
           </h1>
 
-          <p className="mt-10 max-w-2xl font-display text-xl font-medium leading-snug sm:text-2xl">
-            {profile.headline}
-          </p>
-          <p className="mt-5 max-w-[62ch] text-muted">{profile.intro}</p>
-
-          <nav
-            aria-label="Navigasi utama"
-            className="mt-10 flex flex-wrap gap-x-4 gap-y-3 font-display text-base font-semibold"
-          >
-            <a
-              href="#proyek"
-              className="bg-ink px-5 py-2.5 text-paper transition-colors hover:bg-teal"
-            >
-              Lihat proyek
-            </a>
-            {contact.cvUrl && (
-              <a
-                href={contact.cvUrl}
-                className="bg-marker px-5 py-2.5 text-ink transition-colors hover:bg-ink hover:text-paper"
-              >
-                Unduh CV
+          <div className="hero-copy">
+            <p className="hero-role">{profile.role}</p>
+            <p className="hero-intro">{profile.intro}</p>
+            <div className="hero-actions">
+              <a href="#proyek" className="btn btn-mark">
+                Lihat proyek saya
               </a>
-            )}
-            <a
-              href="#kontak"
-              className="border-2 border-ink px-5 py-2 transition-colors hover:bg-ink hover:text-paper"
-            >
-              Hubungi saya
-            </a>
-          </nav>
+              <a href={contact.cvUrl} className="btn btn-ghost" download>
+                Unduh CV (PDF)
+              </a>
+            </div>
+          </div>
+
+          <div className="hero-photo">
+            <div className="hero-arch" aria-hidden="true" />
+            <Image
+              src={portrait}
+              alt={profile.photoAlt}
+              sizes="(min-width: 1024px) 40vw, (min-width: 640px) 24rem, 88vw"
+              loading="eager"
+              fetchPriority="high"
+            />
+          </div>
         </div>
-      </header>
+      </section>
 
-      <main>
-        {/* Proyek: urutan tahun memang berurutan, jadi tahun dipakai sebagai penanda */}
-        <section id="proyek" className={`${wrap} py-16 sm:py-24`}>
-          <h2 className={h2}>Proyek dari 2022 sampai 2026</h2>
-          <p className="mt-3 max-w-[62ch] text-muted">
-            Dari desain antarmuka sampai aplikasi lengkap dengan banyak peran
-            pengguna.
-          </p>
-
-          <ol className="mt-12">
-            {projects.map((p, i) => {
-              const sameYear = i > 0 && projects[i - 1].year === p.year;
-              return (
-                <li
-                  key={p.title}
-                  className="grid gap-x-8 gap-y-3 border-t border-rule py-8 md:grid-cols-[8.5rem_1fr_15rem]"
-                >
-                  <div>
-                    {!sameYear && (
-                      <>
-                        <span
-                          aria-hidden="true"
-                          className="mb-3 block h-1.5 w-10 bg-marker"
-                        />
-                        <span className="font-display text-5xl font-bold tracking-tight">
-                          {p.year}
-                        </span>
-                      </>
-                    )}
+      <main id="konten">
+        <section id="tentang" className="section about">
+          <div className="wrap about-grid">
+            <h2 className="section-title">Tentang saya</h2>
+            <div>
+              <p className="about-lead">{about.lead}</p>
+              <p className="about-body">{about.body}</p>
+              <dl className="facts">
+                {about.facts.map((fact) => (
+                  <div key={fact.label}>
+                    <dt>{fact.label}</dt>
+                    <dd>{fact.value}</dd>
                   </div>
+                ))}
+              </dl>
+            </div>
+          </div>
+        </section>
+
+        <section id="proyek" className="section projects">
+          <div className="wrap">
+            <div className="section-head">
+              <h2 className="section-title">Proyek pilihan</h2>
+              <p className="section-lede">
+                Tiga aplikasi web yang saya bangun, ditambah situs ini sendiri.
+                Proyek terbesar saya ada di paling atas.
+              </p>
+            </div>
+
+            <article className="feature">
+              <div className="feature-text">
+                <p className="feature-meta">
+                  <span className="feature-year">{featuredProject.year}</span>
+                  <span>{featuredProject.context}</span>
+                </p>
+                <h3 className="feature-title">{featuredProject.title}</h3>
+                <p className="feature-summary">{featuredProject.summary}</p>
+
+                <h4 className="feature-subtitle">Yang saya kerjakan</h4>
+                <ul className="feature-list">
+                  {featuredProject.highlights.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+
+                <ul
+                  className="stack"
+                  aria-label={`Teknologi ${featuredProject.title}`}
+                >
+                  {featuredProject.stack.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+
+                <a
+                  href={featuredProject.link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-link feature-link"
+                >
+                  {featuredProject.link.label}
+                  <span className="sr-only"> (membuka tab baru)</span>
+                </a>
+              </div>
+              <div className="feature-visual">
+                <DashboardMock roles={featuredProject.roles} />
+              </div>
+            </article>
+
+            <ol className="project-list">
+              {webProjects.map((project) => (
+                <li key={project.id} className="project-row">
+                  <ProjectThumb id={project.id} />
                   <div>
-                    <h3 className="font-display text-xl font-semibold leading-snug sm:text-2xl">
-                      {p.title}
-                    </h3>
-                    <p className="mt-2 max-w-[62ch] text-muted">{p.summary}</p>
-                    {p.link && (
+                    <p className="project-meta">
+                      <span className="project-year">{project.year}</span>
+                      <span>{project.context}</span>
+                    </p>
+                    <h3 className="project-title">{project.title}</h3>
+                    <p className="project-summary">{project.summary}</p>
+                    <ul
+                      className="stack"
+                      aria-label={`Teknologi ${project.title}`}
+                    >
+                      {project.stack.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                    {project.link && (
                       <a
-                        href={p.link.href}
+                        href={project.link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-3 inline-block font-display font-semibold underline decoration-marker decoration-4 underline-offset-4 hover:decoration-ink"
+                        className="text-link project-link"
                       >
-                        {p.link.label}
+                        {project.link.label}
+                        <span className="sr-only"> (membuka tab baru)</span>
                       </a>
                     )}
                   </div>
-                  <p className="font-display text-sm font-medium leading-relaxed text-teal md:pt-1.5">
-                    {p.stack.join(", ")}
-                  </p>
-                </li>
-              );
-            })}
-          </ol>
-        </section>
-
-        <section
-          id="keahlian"
-          className="border-y border-rule bg-white/55"
-        >
-          <div className={`${wrap} py-16 sm:py-24`}>
-            <h2 className={h2}>Keahlian</h2>
-            <p className="mt-3 max-w-[62ch] text-muted">{skillNote}</p>
-
-            <dl className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2">
-              {skillGroups.map((g) => (
-                <div key={g.name} className="border-t-2 border-ink pt-3">
-                  <dt className="font-display text-lg font-semibold">
-                    {g.name}
-                  </dt>
-                  <dd className="mt-1 text-muted">{g.items.join(", ")}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </section>
-
-        <section id="prestasi" className={`${wrap} py-16 sm:py-24`}>
-          <h2 className={h2}>Pendidikan, publikasi, dan sertifikat</h2>
-
-          <div className="mt-10 border-t-2 border-ink pt-4">
-            <p className="font-display text-xl font-semibold">
-              {education.program}, {education.school}
-            </p>
-            <p className="text-muted">
-              {education.period}. {education.detail}
-            </p>
-          </div>
-
-          <ul className="mt-2">
-            {credentials.map((c) => (
-              <li
-                key={c.title}
-                className="grid gap-x-8 gap-y-1 border-b border-rule py-5 sm:grid-cols-[9rem_1fr]"
-              >
-                <span className="font-display text-sm font-medium text-teal sm:pt-1">
-                  {c.date}
-                </span>
-                <div>
-                  <p className="font-display text-lg font-semibold leading-snug">
-                    {c.title}
-                  </p>
-                  <p className="max-w-[62ch] text-muted">{c.detail}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section
-          id="organisasi"
-          className="border-y border-rule bg-white/55"
-        >
-          <div className={`${wrap} py-16 sm:py-24`}>
-            <h2 className={h2}>Organisasi dan kepanitiaan</h2>
-            <ul className="mt-8 grid gap-6 sm:grid-cols-2">
-              {organizations.map((o) => (
-                <li key={o.role} className="border-t-2 border-ink pt-3">
-                  <p className="font-display text-lg font-semibold">
-                    {o.role}
-                  </p>
-                  <p className="text-muted">{o.org}</p>
-                  {o.period && (
-                    <p className="font-display text-sm font-medium text-teal">
-                      {o.period}
-                    </p>
-                  )}
                 </li>
               ))}
-            </ul>
+            </ol>
+
+            <div className="other">
+              <h3 className="other-title">Di luar web</h3>
+              <p className="other-lede">
+                Proyek kuliah lain yang membentuk dasar saya.
+              </p>
+              <ul className="other-list">
+                {otherProjects.map((project) => (
+                  <li key={project.title}>
+                    <p className="other-year">{project.year}</p>
+                    <h4>{project.title}</h4>
+                    <p>{project.detail}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </section>
 
-        <section id="kontak" className={`${wrap} py-16 sm:py-24`}>
-          <h2 className={h2}>Hubungi saya</h2>
-          {hasContact ? (
-            <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-3 font-display text-lg font-semibold">
-              {contact.email && (
-                <li>
-                  <a
-                    href={`mailto:${contact.email}`}
-                    className="underline decoration-marker decoration-4 underline-offset-4 hover:decoration-ink"
-                  >
-                    {contact.email}
-                  </a>
+        <section id="keahlian" className="section skills">
+          <div className="wrap">
+            <div className="section-head">
+              <h2 className="section-title">Keahlian</h2>
+              <p className="section-lede">
+                Dikelompokkan menurut bagian aplikasi web yang saya kerjakan.
+                Pilih sebuah proyek untuk melihat alat yang saya pakai di sana.
+              </p>
+            </div>
+
+            <SkillExplorer layers={skillLayers} filters={projectFilters} />
+
+            <div className="skills-foot">
+              <p className="skill-note">{skillNote}</p>
+              <dl className="languages">
+                {languages.map((language) => (
+                  <div key={language.name}>
+                    <dt>{language.name}</dt>
+                    <dd>{language.level}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+
+            <div className="workflow">
+              <h3 className="workflow-title">Cara saya bekerja</h3>
+              <p className="section-lede">
+                Empat tahap Rapid Application Development (RAD) yang saya pakai
+                saat membangun sistem tugas akhir.
+              </p>
+              <ol className="workflow-steps">
+                {workflow.map((step, index) => (
+                  <li key={step.title}>
+                    <span className="step-num" aria-hidden="true">
+                      {index + 1}
+                    </span>
+                    <h4>{step.title}</h4>
+                    <p>{step.detail}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <section id="perjalanan" className="section journey">
+          <div className="wrap journey-grid">
+            <div className="journey-intro">
+              <h2 className="section-title">Perjalanan</h2>
+              <p className="section-lede">
+                Dari mahasiswa baru di 2022 sampai wisuda cum laude di 2026.
+              </p>
+            </div>
+            <ol className="timeline">
+              {milestones.map((item) => (
+                <li
+                  key={item.title}
+                  className="milestone"
+                  data-kind={item.kind}
+                >
+                  <time>{item.date}</time>
+                  <div>
+                    <p className="milestone-kind">{item.kind}</p>
+                    <h3>{item.title}</h3>
+                    <p>{item.detail}</p>
+                    {item.link && (
+                      <a
+                        href={item.link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-link milestone-link"
+                      >
+                        {item.link.label}
+                        <span className="sr-only"> (membuka tab baru)</span>
+                      </a>
+                    )}
+                  </div>
                 </li>
-              )}
-              {contact.linkedin && (
+              ))}
+            </ol>
+          </div>
+        </section>
+      </main>
+
+      <section id="kontak" className="contact">
+        <div className="wrap">
+          <h2 className="contact-title">
+            Sedang membuka posisi web developer atau analis data?
+          </h2>
+          <div className="contact-body">
+            <p className="contact-lede">
+              Kirim email atau hubungi saya lewat LinkedIn. CV lengkap saya juga
+              bisa langsung diunduh.
+            </p>
+            <div>
+              <a href={`mailto:${contact.email}`} className="contact-email">
+                {contact.email}
+              </a>
+              <ul className="contact-links">
                 <li>
                   <a
                     href={contact.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline decoration-marker decoration-4 underline-offset-4 hover:decoration-ink"
+                    className="btn btn-ghost"
                   >
                     LinkedIn
                   </a>
                 </li>
-              )}
-              {contact.github && (
                 <li>
                   <a
                     href={contact.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline decoration-marker decoration-4 underline-offset-4 hover:decoration-ink"
+                    className="btn btn-ghost"
                   >
                     GitHub
                   </a>
                 </li>
-              )}
-            </ul>
-          ) : (
-            <p className="mt-4 max-w-[62ch] text-muted">
-              Isi email, LinkedIn, atau GitHub di lib/data.ts, lalu tautannya
-              muncul di sini.
-            </p>
-          )}
-        </section>
-      </main>
+                <li>
+                  <a href={contact.cvUrl} download className="btn btn-mark">
+                    Unduh CV (PDF)
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <footer className="mt-auto border-t border-rule">
-        <p className={`${wrap} py-6 text-sm text-muted`}>
-          {profile.name}. Dibuat dengan Next.js.
-        </p>
+      <footer className="site-footer">
+        <div className="wrap site-footer-inner">
+          <p>© 2026 {profile.name}</p>
+          <p>Dibangun dengan Next.js dan Tailwind CSS.</p>
+        </div>
       </footer>
     </>
   );
