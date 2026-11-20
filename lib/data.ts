@@ -1,4 +1,6 @@
 import type { StaticImageData } from "next/image";
+import expenseDesktop from "@/public/expense/desktop.webp";
+import expenseMobile from "@/public/expense/mobile.webp";
 import kostDesktop from "@/public/kost/desktop.webp";
 import kostMobile from "@/public/kost/mobile.webp";
 import portoDesktop from "@/public/portofolio/desktop.webp";
@@ -63,8 +65,9 @@ export const about = {
     },
     { label: "Based in", value: "Pekanbaru, Riau, Indonesia" },
     {
-      label: "Certification",
-      value: "Cisco Junior Cybersecurity Analyst Career Path",
+      label: "Certifications",
+      value:
+        "Intro to Software Engineering (RevoU Coding Camp) and Cisco Junior Cybersecurity Analyst Career Path",
     },
     {
       label: "Looking for",
@@ -93,10 +96,16 @@ export const aiLoop = {
         "I read the changes, test them in the browser, fix what's off, and deploy.",
     },
   ],
-  tools: ["Claude Code", "Vibe coding", "Prompts and specs", "Code review"],
+  tools: [
+    "Claude Code",
+    "Kiro",
+    "Vibe coding",
+    "Prompts and specs",
+    "Code review",
+  ],
 };
 
-export type ProjectId = "ta" | "reservasi" | "kost" | "portofolio";
+export type ProjectId = "ta" | "reservasi" | "kost" | "expense" | "portofolio";
 
 export type ShowcaseScreen = {
   id: string;
@@ -243,6 +252,32 @@ export const projects: ShowcaseProject[] = [
     mobile: kostMobile,
   },
   {
+    id: "project-expense",
+    navLabel: "Budget Visualizer",
+    kind: "Web app",
+    context: "RevoU Coding Camp, live",
+    title: "Expense & Budget Visualizer",
+    subtitle: "See where your money goes",
+    summary:
+      "A single-page app for logging daily spending in rupiah. It adds up the total, warns you once you pass your spending limit, and draws a live pie chart by category. Everything is saved in the browser, so it runs without a server.",
+    highlights: [
+      "Built spec-first with Kiro: requirements, design, and a task list before any code",
+      "Form validation with inline error messages",
+      "Spending limit alert, sorting, and a dark mode",
+      "Covered by unit and property-based tests with Jest and fast-check",
+    ],
+    stack: ["HTML", "CSS", "JavaScript", "Chart.js", "Local Storage", "Jest"],
+    link: {
+      label: "Try the app",
+      href: "https://pisangterbang.github.io/CodingCamp-9November26-anugrahprimapratama/",
+    },
+    note: "Shown with sample data: light mode on the laptop, dark mode on the phone.",
+    layout: "split",
+    visual: "devices",
+    desktop: expenseDesktop,
+    mobile: expenseMobile,
+  },
+  {
     id: "project-portfolio",
     navLabel: "This portfolio",
     kind: "Personal site",
@@ -256,7 +291,7 @@ export const projects: ShowcaseProject[] = [
       label: "View the code on GitHub",
       href: "https://github.com/PisangTerbang/portofolio",
     },
-    layout: "split",
+    layout: "split-reverse",
     visual: "devices",
     desktop: portoDesktop,
     mobile: portoMobile,
@@ -290,6 +325,7 @@ export const projectFilters: { id: ProjectId; label: string }[] = [
   { id: "ta", label: "Thesis" },
   { id: "reservasi", label: "Ratatouille" },
   { id: "kost", label: "Kost Putra Pendekar" },
+  { id: "expense", label: "Budget Visualizer" },
   { id: "portofolio", label: "This portfolio" },
 ];
 
@@ -305,11 +341,15 @@ export const skillLayers: SkillLayer[] = [
     description: "How I build: AI agents in the loop, me in charge.",
     skills: [
       { name: "Claude Code", usedIn: ["ta", "portofolio"] },
+      { name: "Kiro", usedIn: ["expense"] },
       { name: "Vibe coding", usedIn: ["ta", "kost", "portofolio"] },
-      { name: "Prompts and specs", usedIn: ["ta", "kost", "portofolio"] },
+      {
+        name: "Prompts and specs",
+        usedIn: ["ta", "kost", "expense", "portofolio"],
+      },
       {
         name: "Reviewing AI-written code",
-        usedIn: ["ta", "kost", "portofolio"],
+        usedIn: ["ta", "kost", "expense", "portofolio"],
       },
     ],
   },
@@ -317,10 +357,19 @@ export const skillLayers: SkillLayer[] = [
     name: "Frontend",
     description: "The pages people see and use.",
     skills: [
-      { name: "HTML", usedIn: ["ta", "reservasi", "kost", "portofolio"] },
-      { name: "CSS", usedIn: ["ta", "reservasi", "kost", "portofolio"] },
+      {
+        name: "HTML",
+        usedIn: ["ta", "reservasi", "kost", "expense", "portofolio"],
+      },
+      {
+        name: "CSS",
+        usedIn: ["ta", "reservasi", "kost", "expense", "portofolio"],
+      },
       { name: "Tailwind CSS", usedIn: ["ta", "kost", "portofolio"] },
-      { name: "JavaScript", usedIn: ["ta", "reservasi", "kost", "portofolio"] },
+      {
+        name: "JavaScript",
+        usedIn: ["ta", "reservasi", "kost", "expense", "portofolio"],
+      },
       { name: "Alpine.js", usedIn: ["ta"] },
       { name: "Blade", usedIn: ["ta"] },
       { name: "React", usedIn: ["kost", "portofolio"] },
@@ -329,12 +378,13 @@ export const skillLayers: SkillLayer[] = [
   },
   {
     name: "Backend and logic",
-    description: "Business rules, sign-in, and user permissions.",
+    description: "Business rules, sign-in, permissions, and tests.",
     skills: [
       { name: "PHP", usedIn: ["ta", "reservasi"] },
       { name: "Laravel", usedIn: ["ta"] },
       { name: "Laravel Breeze", usedIn: ["ta"] },
       { name: "Java", usedIn: [] },
+      { name: "Unit testing (Jest)", usedIn: ["expense"] },
     ],
   },
   {
@@ -345,7 +395,8 @@ export const skillLayers: SkillLayer[] = [
       { name: "SQL", usedIn: ["ta", "reservasi"] },
       { name: "Database design", usedIn: ["ta"] },
       { name: "Supabase", usedIn: ["ta"] },
-      { name: "Chart.js", usedIn: ["ta"] },
+      { name: "Chart.js", usedIn: ["ta", "expense"] },
+      { name: "Local Storage", usedIn: ["expense"] },
       { name: "Excel and PDF exports", usedIn: ["ta"] },
       { name: "Excel", usedIn: [] },
       { name: "Google Sheets", usedIn: [] },
@@ -356,7 +407,8 @@ export const skillLayers: SkillLayer[] = [
     description: "From mockups to code running on my machine.",
     skills: [
       { name: "Figma", usedIn: [] },
-      { name: "Git & GitHub", usedIn: ["portofolio"] },
+      { name: "Git & GitHub", usedIn: ["expense", "portofolio"] },
+      { name: "GitHub Pages", usedIn: ["expense"] },
       { name: "Vite", usedIn: ["ta"] },
       { name: "Laragon", usedIn: ["kost", "portofolio"] },
       { name: "Android Studio", usedIn: [] },
@@ -367,6 +419,7 @@ export const skillLayers: SkillLayer[] = [
 export const ribbonTools = [
   "AI-native",
   "Claude Code",
+  "Kiro",
   "Laravel",
   "Next.js",
   "React",
