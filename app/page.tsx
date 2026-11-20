@@ -399,8 +399,8 @@ export default function Home() {
           <h2 className="contact-title">Hiring an AI-native developer?</h2>
           <div className="contact-body">
             <p className="contact-lede">
-              I&apos;m looking for a fresh-graduate role as a software engineer
-              or data analyst. Send me an email, reach out on LinkedIn, or
+              I&apos;m looking for a fresh-graduate role in software engineering
+              or data entry. Send me an email, reach out on LinkedIn, or
               download my CV.
             </p>
             <div>

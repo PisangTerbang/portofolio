@@ -47,7 +47,7 @@ export const navLinks = [
 
 export const about = {
   lead: "I'm an AI-native developer. I build web applications end to end with AI coding agents in the loop, while I make the decisions, review every change, and own the result.",
-  body: "In university I built a project for the Informatics Expo every year, then finished with a Laravel-based information system for my thesis, now published in Jurnal EDUSAINTEK. This portfolio was built the same way: me directing an AI coding agent from the first idea to a live site.",
+  body: "In university I built a project for the Informatics Expo every year, then finished with a Laravel-based information system for my thesis, now published in Jurnal EDUSAINTEK. This portfolio was built the same way: me directing an AI coding agent from the first idea to a live site. On the data side, I work comfortably in Excel and Google Sheets and pay close attention to accuracy.",
   facts: [
     {
       label: "Education",
@@ -68,7 +68,7 @@ export const about = {
     },
     {
       label: "Looking for",
-      value: "Software engineer or data analyst roles",
+      value: "Software engineer or data entry roles",
     },
   ],
 };
@@ -147,6 +147,7 @@ export const projects: ShowcaseProject[] = [
       "Designed the flow and database with Rapid Application Development (RAD)",
       "Built sign-in and access control for five user roles",
       "Created dashboards with charts to track submissions",
+      "Built Excel and PDF exports of submission data, filtered by period and status",
       "Developed with AI coding tools in the loop",
       "Wrote up the results as a journal article with Sri Mulyati",
     ],
@@ -338,13 +339,14 @@ export const skillLayers: SkillLayer[] = [
   },
   {
     name: "Data",
-    description: "Storing, processing, and presenting data.",
+    description: "Entering, organizing, and presenting data accurately.",
     skills: [
       { name: "PostgreSQL", usedIn: ["ta"] },
       { name: "SQL", usedIn: ["ta", "reservasi"] },
       { name: "Database design", usedIn: ["ta"] },
       { name: "Supabase", usedIn: ["ta"] },
       { name: "Chart.js", usedIn: ["ta"] },
+      { name: "Excel and PDF exports", usedIn: ["ta"] },
       { name: "Excel", usedIn: [] },
       { name: "Google Sheets", usedIn: [] },
     ],
@@ -378,7 +380,7 @@ export const ribbonTools = [
 ];
 
 export const skillNote =
-  "My hands-on level is beginner to intermediate, with Excel and Google Sheets at intermediate. Working AI-native lets me pick up new tools quickly and still ship working software.";
+  "My hands-on level is beginner to intermediate, with Excel and Google Sheets at intermediate for data entry work. Working AI-native lets me pick up new tools quickly and still ship working software.";
 
 export const languages = [
   { name: "Indonesian", level: "Native" },
